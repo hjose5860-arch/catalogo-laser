@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Catálogo Laser — Johen</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--or:#E8650A;--ye:#F5A623;--dk:#150800;--r:14px;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'DM Sans',sans-serif;background:var(--dk);color:#fff;min-height:100vh;overflow-x:hidden;}
+.bg-fixed{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,#7a2e00 0%,#3d1200 40%,#0d0400 100%);z-index:0;}
+.wrap{position:relative;z-index:1;}
+
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,166,35,.2);position:sticky;top:0;z-index:100;}
+.hdr-r{display:flex;align-items:center;gap:10px;}
+.hdr-info{text-align:right;}
+.hdr-tag{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--ye);}
+.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;line-height:1;}
+.admin-btn{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);color:var(--ye);font-size:11px;padding:7px 12px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;}
+.admin-btn:hover{background:var(--ye);color:#000;}
+
+.hero{padding:26px 18px 18px;}
+.hero-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ye);display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.hero-lbl::before{content:'';width:20px;height:2px;background:var(--ye);}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,13vw,74px);line-height:.9;}
+.hero h1 span{color:var(--ye);}
+.hero p{margin-top:10px;font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;font-weight:300;}
+.stats{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.stat{background:rgba(0,0,0,.4);border:1px solid rgba(245,166,35,.2);border-radius:10px;padding:10px 14px;flex:1;min-width:60px;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ye);line-height:1;}
+.stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:2px;}
+
+.search-wrap{padding:0 18px 14px;}
+.search-box{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.5);border:1px solid rgba(245,166,35,.2);border-radius:12px;padding:10px 14px;}
+.search-box input{background:none;border:none;outline:none;color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;flex:1;}
+.search-box input::placeholder{color:rgba(255,255,255,.3);}
+
+.filters{display:flex;gap:7px;padding:0 18px 20px;overflow-x:auto;scrollbar-width:none;}
+.filters::-webkit-scrollbar{display:none;}
+.fil-btn{flex-shrink:0;padding:6px 13px;border-radius:20px;border:1px solid rgba(245,166,35,.3);background:rgba(0,0,0,.4);color:rgba(255,255,255,.6);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.fil-btn.active,.fil-btn:hover{background:var(--or);border-color:var(--or);color:#fff;font-weight:600;}
+
+.cat-sec{padding:0 18px 6px;}
+.cat-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;display:flex;align-items:center;gap:10px;margin-bottom:12px;margin-top:24px;}
+.cat-dot{width:7px;height:7px;background:var(--ye);border-radius:50%;flex-shrink:0;box-shadow:0 0 8px var(--ye);}
+.cat-line{flex:1;height:1px;background:linear-gradient(to right,rgba(245,166,35,.3),transparent);}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+@media(min-width:480px){.grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:768px){.grid{grid-template-columns:repeat(4,1fr);}}
+
+.card{background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;}
+.card:active{transform:scale(.97);}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.5),0 0 0 1px rgba(245,166,35,.3);border-color:rgba(245,166,35,.3);}
+.card-img{aspect-ratio:1;position:relative;background:#1a0800;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+.card:hover .card-img img{transform:scale(1.06);}
+.card-img .ph{font-size:38px;opacity:.25;}
+.lsr-badge{position:absolute;top:7px;right:7px;background:var(--ye);color:#000;font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 6px;border-radius:4px;}
+.card-body{padding:9px 11px 11px;}
+.card-name{font-size:11.5px;font-weight:600;color:#fff;line-height:1.4;}
+.card-mat{font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:var(--ye);margin-top:3px;opacity:.8;}
+.card-tap{font-size:10px;color:rgba(255,255,255,.28);margin-top:5px;}
+
+/* MODAL */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(12px);z-index:500;overflow-y:auto;}
+.ov.open{display:block;}
+.modal{background:linear-gradient(160deg,#2a0e00,#140600);border-top:2px solid rgba(245,166,35,.35);min-height:100vh;animation:slideUp .3s ease;}
+@media(min-width:600px){.ov.open{display:flex;align-items:flex-start;justify-content:center;padding:20px;}.modal{min-height:auto;max-width:660px;width:100%;border-radius:20px;border:1px solid rgba(245,166,35,.3);margin:0 auto;}}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.m-img-wrap{position:relative;width:100%;background:#0d0400;min-height:240px;display:flex;align-items:center;justify-content:center;}
+.m-img-wrap img{width:100%;max-height:280px;object-fit:contain;display:none;}
+.m-img-wrap .ph-lg{font-size:70px;opacity:.15;}
+.m-img-overlay{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,#140600,transparent);}
+.m-close{position:absolute;top:12px;right:12px;z-index:10;background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.2);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:background .2s;}
+.m-close:hover{background:var(--or);}
+.m-body{padding:18px 18px 38px;}
+.m-badge{display:inline-block;background:var(--ye);color:#000;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:3px 9px;border-radius:4px;margin-bottom:9px;}
+.m-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,6vw,34px);color:#fff;letter-spacing:1px;line-height:1.1;margin-bottom:14px;}
+.m-lbl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--ye);font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:8px;}
+.m-lbl::after{content:'';flex:1;height:1px;background:rgba(245,166,35,.18);}
+.cores-wrap{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:16px;}
+.cor-item{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.cor-c{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.12);transition:border-color .2s,transform .2s;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.cor-c.active,.cor-c:hover{border-color:var(--ye);transform:scale(1.12);}
+.cor-c img{width:100%;height:100%;object-fit:cover;}
+.cor-n{font-size:8px;color:rgba(255,255,255,.45);text-align:center;max-width:40px;line-height:1.2;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.ib{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:10px 12px;}
+.ib.full{grid-column:1/-1;}
+.ib-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--ye);margin-bottom:3px;}
+.ib-v{font-size:12px;color:rgba(255,255,255,.8);line-height:1.5;font-weight:300;}
+.cbox{background:rgba(232,101,10,.07);border:1px solid rgba(232,101,10,.22);border-radius:11px;padding:13px;}
+.ci{display:flex;gap:9px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.ci:last-child{border-bottom:none;padding-bottom:0;}
+.ci-i{font-size:15px;flex-shrink:0;}
+.ci-t{font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;}
+.ci-t strong{color:#fff;display:block;font-size:11px;}
+.lbox{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.2);border-radius:11px;padding:13px;margin-top:14px;}
+.ldot{width:7px;height:7px;background:var(--ye);border-radius:50%;animation:p 1.8s infinite;flex-shrink:0;}
+@keyframes p{0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,.4)}50%{box-shadow:0 0 0 7px rgba(245,166,35,0)}}
+.ltit{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--ye);}
+.lobs{font-size:12px;color:rgba(255,255,255,.72);line-height:1.6;margin-top:7px;}
+
+/* FOOTER */
+.footer{margin-top:40px;background:rgba(0,0,0,.6);border-top:1px solid rgba(245,166,35,.15);padding:20px 18px;}
+.ft-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.ft-txt{font-size:10px;color:rgba(255,255,255,.35);line-height:1.8;text-align:right;}
+.ft-cnpj{font-size:9px;letter-spacing:1px;color:rgba(245,166,35,.5);margin-top:4px;font-weight:600;}
+.ft-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:12px;text-align:center;font-size:9px;color:rgba(255,255,255,.2);letter-spacing:1px;}
+.empty{text-align:center;padding:40px;color:rgba(255,255,255,.3);}
+
+/* ADMIN */
+.admin-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);backdrop-filter:blur(14px);z-index:600;overflow-y:auto;}
+.admin-ov.open{display:block;}
+.adm-panel{background:#1a0900;border-bottom:3px solid var(--or);min-height:100vh;padding-bottom:60px;}
+.adm-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(0,0,0,.6);border-bottom:1px solid rgba(245,166,35,.2);position:sticky;top:0;z-index:10;}
+.adm-hdr h2{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--ye);}
+.adm-x{background:rgba(232,101,10,.2);border:1px solid var(--or);color:var(--or);padding:7px 13px;border-radius:8px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;}
+.adm-x:hover{background:var(--or);color:#fff;}
+.adm-body{padding:18px;}
+.adm-sec h3{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid rgba(245,166,35,.18);margin-top:24px;}
+.adm-form{background:rgba(0,0,0,.4);border:1px solid rgba(245,166,35,.13);border-radius:13px;padding:16px 16px 12px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;}
+.row1{display:grid;grid-template-columns:1fr;gap:9px;margin-bottom:9px;}
+.af label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ye);margin-bottom:4px;}
+.af input,.af select,.af textarea{width:100%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1);border-radius:7px;color:#fff;font-size:12px;font-family:'DM Sans',sans-serif;padding:8px 11px;outline:none;transition:border-color .2s;}
+.af input:focus,.af select:focus,.af textarea:focus{border-color:var(--ye);}
+.af textarea{resize:vertical;min-height:55px;}
+.af select option{background:#1a0900;}
+.upa{border:2px dashed rgba(245,166,35,.28);border-radius:9px;padding:18px;text-align:center;cursor:pointer;position:relative;}
+.upa:hover{border-color:var(--ye);}
+.upa input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upa-icon{font-size:26px;}
+.upa p{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px;}
+.upa-prev{width:70px;height:70px;object-fit:cover;border-radius:7px;border:2px solid rgba(245,166,35,.3);margin-top:8px;display:none;}
+.save-btn{width:100%;background:linear-gradient(135deg,var(--or),var(--ye));color:#000;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;padding:12px;border:none;border-radius:9px;cursor:pointer;margin-top:8px;letter-spacing:.4px;}
+.save-btn:hover{opacity:.85;}
+.cancel-btn{width:100%;background:rgba(200,50,50,.15);border:1px solid rgba(200,50,50,.25);color:#f88;padding:9px;border-radius:9px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;margin-top:6px;display:none;}
+.adm-list{display:flex;flex-direction:column;gap:7px;}
+.adm-item{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-radius:9px;padding:9px 12px;}
+.adm-ith{width:42px;height:42px;border-radius:6px;background:#0d0400;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.adm-ith img{width:100%;height:100%;object-fit:cover;}
+.adm-iinfo{flex:1;min-width:0;}
+.adm-iname{font-size:12px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.adm-icat{font-size:9px;color:var(--ye);opacity:.8;}
+.adm-iact{display:flex;gap:5px;flex-shrink:0;}
+.ebtn,.dbtn{border:none;border-radius:6px;padding:5px 9px;cursor:pointer;font-size:10px;font-family:'DM Sans',sans-serif;}
+.ebtn{background:rgba(245,166,35,.18);color:var(--ye);}
+.dbtn{background:rgba(200,50,50,.18);color:#f88;}
+.cor-adm-row{display:flex;align-items:center;gap:7px;margin-bottom:7px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07);border-radius:7px;padding:7px 9px;}
+.cor-adm-row input[type=color]{width:30px;height:30px;border:none;border-radius:5px;cursor:pointer;background:none;padding:0;}
+.cor-adm-row input[type=text]{flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:5px;color:#fff;font-size:11px;padding:5px 7px;outline:none;font-family:'DM Sans',sans-serif;}
+.add-cor{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.25);color:var(--ye);padding:6px 12px;border-radius:7px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;margin-top:6px;}
+.cprev{width:28px;height:28px;object-fit:cover;border-radius:4px;border:1px solid rgba(255,255,255,.15);display:none;}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#0d3300;border:1px solid #4caf50;color:#fff;padding:9px 20px;border-radius:9px;font-size:12px;z-index:900;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.on{opacity:1;}
+.scroll-top{position:fixed;bottom:18px;right:18px;z-index:200;background:var(--or);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;box-shadow:0 4px 16px rgba(0,0,0,.4);opacity:0;transition:opacity .3s;border:none;}
+.scroll-top.vis{opacity:1;}
+</style>
+</head>
+<body>
+<div class="bg-fixed"></div>
+<div class="wrap" id="app">
+
+<div class="hdr">
+  <svg style="height:36px;" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+    <text y="36" font-size="38" font-family="serif" font-weight="900" fill="white" letter-spacing="-1">JOHEN</text>
+    <text x="4" y="47" font-size="9" font-family="sans-serif" fill="white" opacity="0.65" letter-spacing="3">ARTES GRÁFICAS</text>
+  </svg>
+  <div class="hdr-r">
+    <div class="hdr-info">
+      <div class="hdr-tag">Catálogo</div>
+      <div class="hdr-title">Gravação a Laser</div>
+    </div>
+    <button class="admin-btn" onclick="openAdmin()">⚙️ Admin</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-lbl">Produtos XBZ Brindes — Personalizados</div>
+  <h1>GRAVE<br><span>SUA MARCA</span></h1>
+  <p>Metal, inox, alumínio, couro sintético, MDF e vidro — gravados com precisão para o seu cliente.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="total-count">0</div><div class="stat-l">Produtos</div></div>
+    <div class="stat"><div class="stat-n">7</div><div class="stat-l">Categorias</div></div>
+    <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Personalizável</div></div>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span style="color:var(--ye);">🔍</span>
+    <input type="text" id="search-input" placeholder="Buscar produto...">
+  </div>
+</div>
+
+<div class="filters" id="filters">
+  <button class="fil-btn active" data-cat="all">Todos</button>
+  <button class="fil-btn" data-cat="canetas">✏️ Canetas</button>
+  <button class="fil-btn" data-cat="kits">🎁 Kits</button>
+  <button class="fil-btn" data-cat="canecas">☕ Canecas</button>
+  <button class="fil-btn" data-cat="garrafas">🍶 Garrafas</button>
+  <button class="fil-btn" data-cat="squeezes">💧 Squeezes</button>
+  <button class="fil-btn" data-cat="couro">📓 Couro</button>
+  <button class="fil-btn" data-cat="outros">🪵 Outros</button>
+</div>
+
+<div id="catalog"></div>
+
+<div class="footer">
+  <div class="ft-top">
+    <svg style="height:30px;opacity:.5;" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+      <text y="36" font-size="38" font-family="serif" font-weight="900" fill="white" letter-spacing="-1">JOHEN</text>
+      <text x="4" y="47" font-size="9" font-family="sans-serif" fill="white" opacity="0.65" letter-spacing="3">ARTES GRÁFICAS</text>
+    </svg>
+    <div>
+      <div class="ft-txt">📞 11 98287-7142 · @JOHEN_ARGRAFICA<br>📍 R. Pedro Fernandes Aragão 269 — Jardim Selma, SP</div>
+      <div class="ft-cnpj">CNPJ: 65.480.613/0001-19</div>
+    </div>
+  </div>
+  <div class="ft-bottom">© JOHEN ARTES GRÁFICAS · TODOS OS DIREITOS RESERVADOS</div>
+</div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="ov" id="modal-ov">
+  <div class="modal">
+    <button class="m-close" onclick="closeModal()">✕</button>
+    <div class="m-img-wrap" id="m-img-wrap">
+      <img id="m-main-img" alt="">
+      <div class="ph-lg" id="m-ph">📦</div>
+      <div class="m-img-overlay"></div>
+    </div>
+    <div class="m-body">
+      <div class="m-badge">✦ Gravação a Laser</div>
+      <div class="m-name" id="m-name"></div>
+      <div id="m-cores-sec">
+        <div class="m-lbl">Variações</div>
+        <div class="cores-wrap" id="m-cores"></div>
+      </div>
+      <div class="m-lbl" style="margin-bottom:9px;">Especificações</div>
+      <div class="info-grid">
+        <div class="ib"><div class="ib-l">Material</div><div class="ib-v" id="m-mat"></div></div>
+        <div class="ib"><div class="ib-l">Área de Gravação</div><div class="ib-v" id="m-area"></div></div>
+        <div class="ib full"><div class="ib-l">Técnica Recomendada</div><div class="ib-v" id="m-tec"></div></div>
+      </div>
+      <div class="m-lbl">Cuidados</div>
+      <div class="cbox" id="m-cuidados"></div>
+      <div class="lbox">
+        <div style="display:flex;align-items:center;gap:7px;"><div class="ldot"></div><div class="ltit">Observações da Gráfica</div></div>
+        <div class="lobs" id="m-obs"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="admin-ov" id="admin-ov">
+  <div class="adm-panel">
+    <div class="adm-hdr">
+      <h2>⚙️ Painel Admin</h2>
+      <button class="adm-x" onclick="closeAdmin()">✕ Fechar</button>
+    </div>
+    <div class="adm-body">
+      <div class="adm-sec">
+        <h3 id="adm-form-title">➕ Adicionar Produto</h3>
+        <div class="adm-form">
+          <input type="hidden" id="edit-id">
+          <div class="row2">
+            <div class="af"><label>Nome *</label><input type="text" id="f-nome" placeholder="Ex: Caneta Metal Slim"></div>
+            <div class="af"><label>Categoria *</label>
+              <select id="f-cat">
+                <option value="canetas">✏️ Canetas</option>
+                <option value="kits">🎁 Kits Executivos</option>
+                <option value="canecas">☕ Canecas & Copos</option>
+                <option value="garrafas">🍶 Garrafas</option>
+                <option value="squeezes">💧 Squeezes</option>
+                <option value="couro">📓 Couro</option>
+                <option value="outros">🪵 Outros</option>
+              </select>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="af"><label>Material</label><input type="text" id="f-mat" placeholder="Ex: Inox 304"></div>
+            <div class="af"><label>Área de Gravação</label><input type="text" id="f-area" placeholder="Ex: 8 × 5 cm"></div>
+          </div>
+          <div class="row1"><div class="af"><label>Técnica Recomendada</label><input type="text" id="f-tec" placeholder="Ex: Laser fibra com eixo rotativo"></div></div>
+          <div class="row1"><div class="af"><label>Observações da Gráfica</label><textarea id="f-obs" placeholder="Dicas de potência, resultado, cuidados técnicos..."></textarea></div></div>
+          <div class="row1"><div class="af"><label>Tipo (para cuidados)</label>
+            <select id="f-tipo">
+              <option value="inox">Inox</option>
+              <option value="aluminio">Alumínio</option>
+              <option value="metal">Metal/Liga</option>
+              <option value="couro">Couro Sintético</option>
+              <option value="mdf">MDF</option>
+              <option value="vidro">Vidro</option>
+            </select>
+          </div></div>
+          <div class="af" style="margin-bottom:12px;">
+            <label>Foto Principal</label>
+            <div class="upa">
+              <input type="file" accept="image/*" onchange="handleUp(this,'main')">
+              <div class="upa-icon">🖼️</div>
+              <p>Clique para enviar foto (JPG, PNG, WEBP)</p>
+              <img id="f-prev" class="upa-prev">
+            </div>
+          </div>
+          <div class="af" style="margin-bottom:10px;">
+            <label>Variações de Cor</label>
+            <div id="cores-list"></div>
+            <button class="add-cor" onclick="addCor()">+ Adicionar Variação</button>
+          </div>
+          <button class="save-btn" onclick="saveProduct()">💾 Salvar Produto</button>
+          <button class="cancel-btn" id="cancel-btn" onclick="cancelEdit()">✕ Cancelar Edição</button>
+        </div>
+      </div>
+      <div class="adm-sec">
+        <h3>📦 Produtos Cadastrados</h3>
+        <div class="adm-list" id="adm-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const CAT_LABELS={
+  canetas:'✏️ Canetas Metal',
+  kits:'🎁 Kits Executivos',
+  canecas:'☕ Canecas & Copos Inox',
+  garrafas:'🍶 Garrafas Térmicas',
+  squeezes:'💧 Squeezes',
+  couro:'📓 Agendas & Cadernetas Couro',
+  outros:'🪵 Chaveiros, MDF & Vidro'
+};
+
+const CUIDADOS={
+  inox:[
+    {i:'🧼',t:'Limpeza',d:'Esponja macia e detergente neutro. Evitar esponjas de aço.'},
+    {i:'🚫',t:'Evitar',d:'Produtos abrasivos, cloro ou água sanitária.'},
+    {i:'🌡️',t:'Temperatura',d:'Não aquecer no micro-ondas. Máx. 80°C nas vedações.'},
+    {i:'✅',t:'Gravação Laser',d:'Permanente. Resistente à lavagem e lava-louças (verificar produto).'},
+  ],
+  aluminio:[
+    {i:'🧼',t:'Limpeza',d:'Água morna e detergente suave. Secar imediatamente.'},
+    {i:'🚫',t:'Evitar',d:'Líquidos ácidos por longos períodos.'},
+    {i:'✅',t:'Gravação Laser',d:'Remove anodizado — contraste prata/fundo colorido. Permanente.'},
+    {i:'🔒',t:'Tampa',d:'Apertar até o ponto de resistência. Não forçar rosca.'},
+  ],
+  couro:[
+    {i:'💧',t:'Umidade',d:'Evitar chuva ou umidade prolongada. Pode deformar.'},
+    {i:'☀️',t:'Sol direto',d:'Não expor por longos períodos — resseca.'},
+    {i:'✅',t:'Gravação CO₂',d:'Queima a superfície PU — marcação permanente e elegante.'},
+    {i:'📦',t:'Guarda',d:'Local seco e arejado. Evitar peso em cima.'},
+  ],
+  mdf:[
+    {i:'💧',t:'Água',d:'Evitar contato com umidade — MDF pode inchar.'},
+    {i:'✅',t:'Gravação CO₂',d:'MDF absorve CO₂ perfeitamente. Resultado queimado natural.'},
+    {i:'🧹',t:'Limpeza',d:'Pano seco ou levemente úmido. Nunca molhar diretamente.'},
+  ],
+  vidro:[
+    {i:'⚠️',t:'Fragilidade',d:'Evitar impactos e mudanças bruscas de temperatura.'},
+    {i:'✅',t:'Gravação CO₂',d:'Cria efeito fosco sobre transparente. Permanente.'},
+    {i:'🌡️',t:'Temperatura',d:'Não alternar líquidos quentes/gelados bruscamente.'},
+  ],
+  metal:[
+    {i:'🧼',t:'Limpeza',d:'Pano levemente úmido. Secar bem.'},
+    {i:'🚫',t:'Evitar',d:'Contato prolongado com água ou produtos químicos.'},
+    {i:'✅',t:'Gravação Laser',d:'Fibra remove laca/anodizado. Permanente e resistente.'},
+    {i:'📦',t:'Guarda',d:'Estojo para evitar arranhões na superfície polida.'},
+  ],
+};
+
+// SVG inline como placeholder por categoria — funciona 100% sem internet
+const SVGS = {
+  caneta: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="42" y="10" width="16" height="65" rx="6" fill="#c8a84b"/><rect x="44" y="12" width="12" height="55" rx="4" fill="#e8c96a"/><ellipse cx="50" cy="78" rx="6" ry="9" fill="#aaa"/><rect x="46" y="8" width="8" height="8" rx="2" fill="#888"/><rect x="44" y="62" width="12" height="4" rx="1" fill="#b8973a"/></svg>`,
+  kit: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="30" width="70" height="50" rx="6" fill="#5d4037"/><rect x="15" y="30" width="70" height="12" rx="6" fill="#795548"/><rect x="40" y="24" width="20" height="18" rx="3" fill="#a1887f" stroke="#795548" stroke-width="2"/><rect x="42" y="48" width="16" height="3" rx="1.5" fill="#c8a84b"/><rect x="42" y="54" width="16" height="3" rx="1.5" fill="#c8a84b" opacity=".6"/></svg>`,
+  caneca: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="25" width="48" height="55" rx="8" fill="#aaa"/><rect x="22" y="27" width="44" height="51" rx="6" fill="#c8c8c8"/><path d="M68 40 Q85 40 85 55 Q85 70 68 70" stroke="#aaa" stroke-width="8" fill="none" stroke-linecap="round"/><rect x="25" y="42" width="38" height="3" rx="1.5" fill="#E8650A" opacity=".7"/><rect x="25" y="49" width="28" height="3" rx="1.5" fill="#E8650A" opacity=".4"/></svg>`,
+  garrafa: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="5" width="30" height="12" rx="4" fill="#888"/><rect x="30" y="15" width="40" height="75" rx="10" fill="#aaa"/><rect x="32" y="17" width="36" height="71" rx="8" fill="#c8c8c8"/><rect x="35" y="30" width="30" height="3" rx="1.5" fill="#E8650A" opacity=".8"/><rect x="35" y="37" width="22" height="3" rx="1.5" fill="#E8650A" opacity=".5"/><ellipse cx="50" cy="80" rx="12" ry="5" fill="#b0b0b0"/></svg>`,
+  squeeze: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="8" width="36" height="78" rx="12" fill="#4caf50"/><rect x="34" y="10" width="32" height="74" rx="10" fill="#66bb6a"/><rect x="38" y="4" width="24" height="10" rx="4" fill="#388e3c"/><rect x="36" y="35" width="28" height="4" rx="2" fill="white" opacity=".4"/><rect x="36" y="43" width="20" height="4" rx="2" fill="white" opacity=".25"/></svg>`,
+  couro: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="12" width="70" height="80" rx="5" fill="#5d4037"/><rect x="17" y="14" width="66" height="76" rx="4" fill="#795548"/><rect x="20" y="30" width="60" height="2" rx="1" fill="#a1887f"/><rect x="20" y="38" width="50" height="2" rx="1" fill="#a1887f" opacity=".6"/><rect x="20" y="46" width="55" height="2" rx="1" fill="#a1887f" opacity=".4"/><rect x="88" y="30" width="4" height="50" rx="2" fill="#f5a623"/></svg>`,
+  chaveiro: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="38" r="22" fill="none" stroke="#c8a84b" stroke-width="8"/><circle cx="50" cy="38" r="12" fill="none" stroke="#c8a84b" stroke-width="5"/><rect x="46" y="58" width="8" height="28" rx="3" fill="#c8a84b"/><rect x="38" y="70" width="8" height="6" rx="2" fill="#aaa"/><rect x="54" y="70" width="8" height="6" rx="2" fill="#aaa"/></svg>`,
+  mdf: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="20" width="70" height="65" rx="4" fill="#d4a76a"/><rect x="17" y="22" width="66" height="61" rx="3" fill="#e8c28a"/><rect x="22" y="32" width="56" height="3" rx="1.5" fill="#b8833a" opacity=".6"/><rect x="22" y="40" width="40" height="3" rx="1.5" fill="#b8833a" opacity=".4"/><rect x="22" y="48" width="50" height="3" rx="1.5" fill="#b8833a" opacity=".3"/></svg>`,
+  vidro: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="33" y="8" width="34" height="78" rx="12" fill="rgba(150,210,255,0.35)" stroke="#90caf9" stroke-width="3"/><rect x="35" y="10" width="30" height="10" rx="4" fill="#90caf9" opacity=".5"/><rect x="36" y="30" width="28" height="3" rx="1.5" fill="white" opacity=".4"/><rect x="36" y="38" width="18" height="3" rx="1.5" fill="white" opacity=".2"/></svg>`,
+  penDrive: `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="35" width="50" height="30" rx="6" fill="#c8a84b"/><rect x="22" y="37" width="46" height="26" rx="4" fill="#e8c96a"/><rect x="70" y="43" width="18" height="14" rx="3" fill="#888"/><circle cx="36" cy="50" r="5" fill="#c8a84b"/><rect x="44" y="46" width="20" height="3" rx="1.5" fill="#b8973a" opacity=".6"/><rect x="44" y="52" width="14" height="3" rx="1.5" fill="#b8973a" opacity=".4"/></svg>`,
+};
+
+function getSVG(tipo, cat){
+  if(cat==='canetas') return SVGS.caneta;
+  if(cat==='kits') return SVGS.kit;
+  if(cat==='canecas') return SVGS.caneca;
+  if(cat==='garrafas') return SVGS.garrafa;
+  if(cat==='squeezes') return SVGS.squeeze;
+  if(cat==='couro') return SVGS.couro;
+  if(tipo==='vidro') return SVGS.vidro;
+  if(tipo==='mdf') return SVGS.mdf;
+  return SVGS.chaveiro;
+}
+
+const PH = (txt,emoji,cat,tipo) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(getSVG(tipo,cat))}`;
+
+const STORAGE_KEY = 'johen_laser_v3';
+function loadDB(){
+  try{ const r=localStorage.getItem(STORAGE_KEY); if(r) return JSON.parse(r); }catch(e){}
+  return defaultDB();
+}
+function saveDB(d){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(d)); }catch(e){} }
+
+function mkImg(cat,tipo){ return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(getSVG(tipo,cat))}`; }
+
+function defaultDB(){
+  const I=(cat,tipo)=>mkImg(cat,tipo);
+  return {
+    canetas:[
+      {id:'cn1',nome:'Caneta Metal Borboleta',mat:'Liga metálica. Mecanismo twist. Carga azul.',area:'6 × 1 cm',tec:'Laser de fibra — remove laca',obs:'Logomarcas finas e textos. Ideal para brindes femininos.',tipo:'metal',img:I('canetas','metal'),
+       cores:[{n:'Dourado',c:'#c8a84b',img:I('canetas','metal')},{n:'Prata',c:'#aaa',img:I('canetas','metal')}]},
+      {id:'cn2',nome:'Caneta Metal Coração',mat:'Liga metálica polida. Ponteira em resina.',area:'5 × 1 cm',tec:'Laser de fibra — alta precisão',obs:'Apelo feminino forte. Brindes de beleza, moda e saúde.',tipo:'metal',img:I('canetas','metal'),
+       cores:[{n:'Rosa',c:'#e897b0',img:I('canetas','metal')},{n:'Prata',c:'#c0c0c0',img:I('canetas','metal')}]},
+      {id:'cn3',nome:'Caneta Metal Coroa',mat:'Metal acabamento matte. Detalhes cromados.',area:'5,5 × 1 cm',tec:'Laser de fibra — matte revela brilho',obs:'Matte facilita gravação com alto contraste brilhante.',tipo:'metal',img:I('canetas','metal'),
+       cores:[{n:'Matte',c:'#555',img:I('canetas','metal')},{n:'Cromado',c:'#e0e0e0',img:I('canetas','metal')}]},
+      {id:'cn4',nome:'Caneta Metal Rosa',mat:'Metal com laca rosa. Clip metálico.',area:'6 × 1 cm',tec:'Laser de fibra',obs:'Laca rosa remove expondo metal dourado — contraste lindo.',tipo:'metal',img:I('canetas','metal'),
+       cores:[{n:'Rosa',c:'#e897b0',img:I('canetas','metal')},{n:'Verde',c:'#4caf50',img:I('canetas','metal')}]},
+      {id:'cn5',nome:'Caneta Semi Metal',mat:'Alumínio anodizado. Tampa e clip ABS.',area:'6 × 1 cm',tec:'Laser de fibra',obs:'Alumínio anodizado: marcação clara e permanente.',tipo:'aluminio',img:I('canetas','aluminio'),
+       cores:[{n:'Inox',c:'#aaa',img:I('canetas','aluminio')},{n:'Azul',c:'#2196f3',img:I('canetas','aluminio')},{n:'Vermelho',c:'#e53935',img:I('canetas','aluminio')}]},
+      {id:'cn6',nome:'Caneta Metal Slim',mat:'Liga metálica fina. Tampa magnética.',area:'5,5 × 0,8 cm',tec:'Laser de fibra',obs:'Perfil fino e elegante. Ótima para logotipos compactos.',tipo:'metal',img:I('canetas','metal'),
+       cores:[{n:'Prata',c:'#c0c0c0',img:I('canetas','metal')},{n:'Ouro',c:'#c8a84b',img:I('canetas','metal')}]},
+      {id:'cn7',nome:'Caneta Roller Semi Metal',mat:'Roller ball. Alumínio e ABS. Carga preta.',area:'6 × 1 cm',tec:'Laser de fibra',obs:'Escrita mais fluida. Premium corporativo.',tipo:'aluminio',img:I('canetas','aluminio'),cores:[]},
+    ],
+    kits:[
+      {id:'kt1',nome:'Conjunto Caneta + Lapiseira Metal',mat:'Caneta e lapiseira matte. Estojo incluso.',area:'5,5 × 1 cm/peça',tec:'Laser de fibra (gravar as duas peças)',obs:'Gravar em sequência para alinhamento idêntico.',tipo:'metal',img:I('kits','metal'),
+       cores:[{n:'Prata',c:'#c0c0c0',img:I('kits','metal')},{n:'Dourado',c:'#c8a84b',img:I('kits','metal')}]},
+      {id:'kt2',nome:'Kit Executivo 3 Peças',mat:'Caneta + lapiseira + régua. Estojo couro PU.',area:'Caneta 5,5 × 1 cm',tec:'Laser fibra + CO₂ (estojo)',obs:'Combo ideal para brindes premium.',tipo:'couro',img:I('kits','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('kits','couro')}]},
+      {id:'kt3',nome:'Kit Caneta + Porta Cartão Couro',mat:'Caneta metal + porta cartão PU. Caixa papelão.',area:'Caneta 5 × 1 cm / Cartão 8 × 1,5 cm',tec:'Laser fibra + CO₂',obs:'Alta percepção de valor. Ideal para clientes VIP.',tipo:'couro',img:I('kits','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('kits','couro')},{n:'Marrom',c:'#795548',img:I('kits','couro')}]},
+    ],
+    canecas:[
+      {id:'ca1',nome:'Caneca Inox 400ml',mat:'Aço inoxidável 304. Parede simples. 400ml.',area:'8 × 5 cm',tec:'Laser de fibra (oxidação)',obs:'Inox 304 grava excelente. Marcação cinza escuro a preto.',tipo:'inox',img:I('canecas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('canecas','inox')},{n:'Preta',c:'#222',img:I('canecas','inox')}]},
+      {id:'ca2',nome:'Caneca Inox PD 270ml',mat:'Inox 304 parede dupla a vácuo. 6h quente / 12h frio.',area:'7 × 4 cm',tec:'Laser fibra + eixo rotativo',obs:'Parede dupla exige eixo rotativo para gravação uniforme.',tipo:'inox',img:I('canecas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('canecas','inox')},{n:'Preta',c:'#111',img:I('canecas','inox')}]},
+      {id:'ca3',nome:'Caneca Inox PD 350ml',mat:'Inox 304 parede dupla a vácuo. Tampa hermética.',area:'8 × 5 cm',tec:'Laser fibra com eixo rotativo',obs:'Produto premium. Alta saída para brindes corporativos.',tipo:'inox',img:I('canecas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('canecas','inox')},{n:'Preta',c:'#222',img:I('canecas','inox')}]},
+      {id:'ca4',nome:'Copo Inox 480ml Powder Coat',mat:'Inox com powder coat. Sem alça. 480ml.',area:'9 × 5 cm',tec:'Laser fibra — remove coating',obs:'Branco revela inox polido. Excelente para gravações detalhadas.',tipo:'inox',img:I('canecas','inox'),
+       cores:[{n:'Branco',c:'#eee',img:I('canecas','inox')},{n:'Preto',c:'#111',img:I('canecas','inox')},{n:'Rosa',c:'#e897b0',img:I('canecas','inox')}]},
+      {id:'ca5',nome:'Caneca Inox 300ml Colorida',mat:'Inox 304 + powder coat colorido. 300ml.',area:'7 × 4 cm',tec:'Laser fibra — remove coating',obs:'Várias cores disponíveis. Ideal para kits com garrafa matching.',tipo:'inox',img:I('canecas','inox'),
+       cores:[{n:'Azul',c:'#2196f3',img:I('canecas','inox')},{n:'Vermelho',c:'#e53935',img:I('canecas','inox')},{n:'Verde',c:'#4caf50',img:I('canecas','inox')}]},
+    ],
+    garrafas:[
+      {id:'g1',nome:'Garrafa Inox 500ml',mat:'Inox 304. Parede dupla a vácuo. Tampa esportiva.',area:'10 × 6 cm',tec:'Laser fibra com eixo rotativo',obs:'Inox escovado com gravação fosco elegante.',tipo:'inox',img:I('garrafas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('garrafas','inox')},{n:'Preta',c:'#222',img:I('garrafas','inox')}]},
+      {id:'g2',nome:'Garrafa Inox 650ml',mat:'Inox 304 parede dupla a vácuo. Tampa hermética.',area:'11 × 6 cm',tec:'Laser fibra com eixo rotativo',obs:'Muito solicitada para brindes esportivos.',tipo:'inox',img:I('garrafas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('garrafas','inox')},{n:'Prata',c:'#c0c0c0',img:I('garrafas','inox')}]},
+      {id:'g3',nome:'Garrafa Inox 800ml Powder Coat',mat:'Inox com powder coat. Tampa esportiva. 800ml.',area:'12 × 7 cm',tec:'Laser fibra — remove coating',obs:'Branco/preto ideais para logomarcas detalhadas.',tipo:'inox',img:I('garrafas','inox'),
+       cores:[{n:'Branco',c:'#eee',img:I('garrafas','inox')},{n:'Preto',c:'#111',img:I('garrafas','inox')},{n:'Rosa',c:'#e897b0',img:I('garrafas','inox')}]},
+      {id:'g4',nome:'Garrafa Térmica 500ml',mat:'Inox 304 escovado. Parede dupla a vácuo.',area:'10 × 6 cm',tec:'Laser fibra — inox escovado',obs:'Gravação com acabamento fosco muito elegante.',tipo:'inox',img:I('garrafas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('garrafas','inox')},{n:'Bicolor',c:'#666',img:I('garrafas','inox')}]},
+      {id:'g5',nome:'Garrafa Térmica 700ml',mat:'Inox 304. 12h quente / 24h frio. Tampa dosador.',area:'13 × 7 cm',tec:'Laser fibra com eixo rotativo',obs:'Grande área. Permite logo + slogan na mesma peça.',tipo:'inox',img:I('garrafas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('garrafas','inox')},{n:'Preta',c:'#111',img:I('garrafas','inox')}]},
+      {id:'g6',nome:'Garrafa Térmica 1 Litro',mat:'Inox 304 parede dupla. Alça. Tampa dosadora.',area:'14 × 8 cm',tec:'Laser fibra com eixo rotativo',obs:'Maior área de gravação. Muito usada em brindes de grandes empresas.',tipo:'inox',img:I('garrafas','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('garrafas','inox')},{n:'Preta',c:'#222',img:I('garrafas','inox')}]},
+    ],
+    squeezes:[
+      {id:'s1',nome:'Squeeze Alumínio 550ml',mat:'Alumínio anodizado. Tampa plástica. 550ml.',area:'11 × 6 cm',tec:'Laser fibra — anodizado',obs:'Prata sobre fundo colorido. Material ideal para laser.',tipo:'aluminio',img:I('squeezes','aluminio'),
+       cores:[{n:'Azul',c:'#2196f3',img:I('squeezes','aluminio')},{n:'Verde',c:'#4caf50',img:I('squeezes','aluminio')},{n:'Vermelho',c:'#e53935',img:I('squeezes','aluminio')}]},
+      {id:'s2',nome:'Squeeze Alumínio 750ml',mat:'Alumínio anodizado. 750ml. Rosca.',area:'12 × 6 cm',tec:'Laser fibra — anodizado',obs:'Alta procura no segmento fitness e esportivo.',tipo:'aluminio',img:I('squeezes','aluminio'),
+       cores:[{n:'Verde',c:'#4caf50',img:I('squeezes','aluminio')},{n:'Azul',c:'#2196f3',img:I('squeezes','aluminio')},{n:'Preto',c:'#222',img:I('squeezes','aluminio')}]},
+      {id:'s3',nome:'Squeeze Inox 600ml',mat:'Inox 304. Tampa esportiva com trava. 600ml.',area:'11 × 6 cm',tec:'Laser fibra com eixo rotativo',obs:'Durabilidade máxima. Resistente a lava-louças.',tipo:'inox',img:I('squeezes','inox'),
+       cores:[{n:'Inox',c:'#aaa',img:I('squeezes','inox')},{n:'Rosa',c:'#e897b0',img:I('squeezes','inox')}]},
+      {id:'s4',nome:'Squeeze Inox 880ml Powder Coat',mat:'Inox com powder coat. Parede dupla. 880ml.',area:'14 × 7 cm',tec:'Laser fibra — remove coating',obs:'Popular no segmento feminino. Inox sobre rosa — impactante.',tipo:'inox',img:I('squeezes','inox'),
+       cores:[{n:'Rosa',c:'#e897b0',img:I('squeezes','inox')},{n:'Cinza',c:'#888',img:I('squeezes','inox')}]},
+      {id:'s5',nome:'Squeeze Plástico Esportivo 700ml',mat:'Plástico BPA free. Tampa esportiva. 700ml.',area:'10 × 6 cm',tec:'Gravação UV ou tampografia',obs:'Alternativa econômica. UV para cor vibrante.',tipo:'metal',img:I('squeezes','metal'),
+       cores:[{n:'Azul',c:'#2196f3',img:I('squeezes','metal')},{n:'Verde',c:'#4caf50',img:I('squeezes','metal')}]},
+    ],
+    couro:[
+      {id:'co1',nome:'Agenda Couro Sintético 2026',mat:'Capa PU. Miolo offset 70g. Elástico.',area:'15 × 10 cm',tec:'Laser CO₂ (queima superficial PU)',obs:'Potência moderada. Testar antes para não perfurar o PU.',tipo:'couro',img:I('couro','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('couro','couro')},{n:'Marrom',c:'#795548',img:I('couro','couro')}]},
+      {id:'co2',nome:'Agenda Diária 2026',mat:'PU couro. Miolo diário. Elástico. Porta-caneta.',area:'15 × 10 cm',tec:'Laser CO₂',obs:'Diária tem mais páginas — maior percepção de valor.',tipo:'couro',img:I('couro','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('couro','couro')},{n:'Azul',c:'#1a237e',img:I('couro','couro')}]},
+      {id:'co3',nome:'Caderneta Couro Sintético A5',mat:'PU couro. 80 folhas pautadas. Elástico.',area:'13 × 9 cm',tec:'Laser CO₂',obs:'Ótimo para kits executivos com caneta metal.',tipo:'couro',img:I('couro','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('couro','couro')},{n:'Marrom',c:'#795548',img:I('couro','couro')}]},
+      {id:'co4',nome:'Caderneta com Porta-Caneta',mat:'PU couro. Porta-caneta embutido. 80 folhas.',area:'13 × 9 cm',tec:'Laser CO₂',obs:'Praticidade extra. Ideal para kit.',tipo:'couro',img:I('couro','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('couro','couro')}]},
+      {id:'co5',nome:'Bloco Anotações Couro Preto',mat:'PU preto. 100 folhas. Clip metálico.',area:'14 × 10 cm',tec:'Laser CO₂',obs:'PU preto: gravação resulta em bege/caramelo — contraste elegante.',tipo:'couro',img:I('couro','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('couro','couro')}]},
+      {id:'co6',nome:'Pasta Caderno Couro Executiva',mat:'PU couro. Fecho magnético. Suporte tablet + bloco.',area:'25 × 18 cm',tec:'Laser CO₂',obs:'Grande área. Permite logo em tamanho real.',tipo:'couro',img:I('couro','couro'),
+       cores:[{n:'Preto',c:'#222',img:I('couro','couro')},{n:'Marrom',c:'#795548',img:I('couro','couro')}]},
+    ],
+    outros:[
+      {id:'o1',nome:'Chaveiro Metal Retangular',mat:'Metal com revestimento colorido. Argola inox.',area:'4 × 2,5 cm',tec:'Laser de fibra',obs:'Pequena área — usar logo simples ou iniciais.',tipo:'metal',img:I('outros','metal'),
+       cores:[{n:'Branco',c:'#eee',img:I('outros','metal')},{n:'Preto',c:'#111',img:I('outros','metal')},{n:'Dourado',c:'#c8a84b',img:I('outros','metal')}]},
+      {id:'o2',nome:'Chaveiro Inox Redondo',mat:'Inox polido. Argola dupla. Ø 4 cm.',area:'3,5 × 3,5 cm',tec:'Laser de fibra',obs:'Gravação com alto brilho e contraste. Muito elegante.',tipo:'inox',img:I('outros','inox'),cores:[]},
+      {id:'o3',nome:'Garrafa Vidro 330ml',mat:'Vidro borossilicato. Tampa bambu. 330ml.',area:'8 × 5 cm',tec:'Laser CO₂ — efeito jateamento',obs:'CO₂ cria fosco sobre transparente. Resultado artesanal premium.',tipo:'vidro',img:I('outros','vidro'),
+       cores:[{n:'Natural',c:'#a5d6a7',img:I('outros','vidro')},{n:'400ml',c:'#66bb6a',img:I('outros','vidro')}]},
+      {id:'o4',nome:'Garrafa Vidro 500ml',mat:'Vidro. Tampa metálica. 500ml. Alça silicone.',area:'10 × 6 cm',tec:'Laser CO₂',obs:'Tendência sustentável. Alta demanda atual.',tipo:'vidro',img:I('outros','vidro'),cores:[]},
+      {id:'o5',nome:'Calendário Permanente MDF',mat:'MDF 3mm peças encaixáveis. Natural.',area:'20 × 15 cm',tec:'Laser CO₂ — ideal para MDF',obs:'MDF perfeito para CO₂. Logo com resultado limpo.',tipo:'mdf',img:I('outros','mdf'),cores:[]},
+      {id:'o6',nome:'Suporte Celular Inox',mat:'Inox 304 escovado. Ajustável. Base antiderrapante.',area:'5 × 3 cm',tec:'Laser de fibra',obs:'Produto de mesa — logo visível constantemente.',tipo:'inox',img:I('outros','inox'),cores:[]},
+      {id:'o7',nome:'Pen Drive Metal USB 3.0',mat:'Liga metálica. Tampa removível. 16GB ou 32GB.',area:'4 × 0,8 cm',tec:'Laser de fibra',obs:'Alta retenção — cliente usa todo dia.',tipo:'metal',img:I('outros','metal'),
+       cores:[{n:'Prata',c:'#c0c0c0',img:I('outros','metal')},{n:'Dourado',c:'#c8a84b',img:I('outros','metal')}]},
+    ]
+  };
+}
+
+// Força reset se o banco ainda tiver imagens externas quebradas
+(()=>{try{const r=localStorage.getItem(STORAGE_KEY);if(r){const d=JSON.parse(r);const sample=Object.values(d).flat()[0];if(sample&&sample.img&&sample.img.startsWith('https://placehold'))localStorage.removeItem(STORAGE_KEY);}}catch(e){}})();
+let db = loadDB();
+let activeCat = 'all';
+let searchTerm = '';
+let editingId = null;
+let imgMap = {};
+let corCount = 0;
+
+// ─ RENDER ─
+function getAllProds(){
+  return Object.entries(db).flatMap(([cat,list])=>list.map(p=>({...p,_cat:cat})));
+}
+function renderCatalog(){
+  const el = document.getElementById('catalog');
+  el.innerHTML = '';
+  let total = 0;
+  for(const [key,list] of Object.entries(db)){
+    if(activeCat!=='all' && activeCat!==key) continue;
+    const f = list.filter(p=>
+      p.nome.toLowerCase().includes(searchTerm)||(p.mat||'').toLowerCase().includes(searchTerm)
+    );
+    if(!f.length) continue;
+    total += f.length;
+    const sec = document.createElement('div');
+    sec.className='cat-sec';
+    sec.innerHTML=`<div class="cat-title"><div class="cat-dot"></div>${CAT_LABELS[key]||key}<div class="cat-line"></div></div>`;
+    const grid = document.createElement('div');
+    grid.className='grid';
+    f.forEach(p=>grid.appendChild(mkCard(p)));
+    sec.appendChild(grid);
+    el.appendChild(sec);
+  }
+  if(!total) el.innerHTML='<div class="empty">Nenhum produto encontrado 🔍</div>';
+  document.getElementById('total-count').textContent=total;
+}
+function mkCard(p){
+  const d=document.createElement('div');
+  d.className='card';
+  d.innerHTML=`
+    <div class="card-img">
+      <div class="lsr-badge">Laser</div>
+      ${p.img?`<img src="${p.img}" alt="${p.nome}" onerror="this.style.display='none';this.nextSibling.style.display='block'"><div class="ph" style="display:none;">📦</div>`:`<div class="ph">📦</div>`}
+    </div>
+    <div class="card-body">
+      <div class="card-name">${p.nome}</div>
+      <div class="card-mat">${(p.mat||'').split('.')[0]}</div>
+      <div class="card-tap">👆 Ver detalhes</div>
+    </div>`;
+  d.addEventListener('click',()=>openModal(p));
+  return d;
+}
+
+// ─ MODAL ─
+function openModal(p){
+  const mi=document.getElementById('m-main-img'), ph=document.getElementById('m-ph');
+  if(p.img){ mi.src=p.img; mi.style.display='block'; ph.style.display='none'; }
+  else{ mi.style.display='none'; ph.style.display='block'; }
+  document.getElementById('m-name').textContent=p.nome;
+  document.getElementById('m-mat').textContent=p.mat||'—';
+  document.getElementById('m-area').textContent=p.area||'—';
+  document.getElementById('m-tec').textContent=p.tec||'—';
+  document.getElementById('m-obs').textContent=p.obs||'—';
+  // cores
+  const cw=document.getElementById('m-cores'), cs=document.getElementById('m-cores-sec');
+  cw.innerHTML='';
+  if(p.cores&&p.cores.length>1){
+    cs.style.display='';
+    p.cores.forEach((c,i)=>{
+      const it=document.createElement('div'); it.className='cor-item';
+      it.innerHTML=`<div class="cor-c${i===0?' active':''}" title="${c.n}" style="${!c.img?'background:'+c.c:''}">${c.img?`<img src="${c.img}" alt="${c.n}" onerror="this.parentElement.style.background='${c.c}';this.remove()">`:''}</div><div class="cor-n">${c.n}</div>`;
+      it.querySelector('.cor-c').addEventListener('click',function(){
+        document.querySelectorAll('#m-cores .cor-c').forEach(e=>e.classList.remove('active'));
+        this.classList.add('active');
+        if(c.img){ mi.style.opacity='.4'; mi.src=c.img; mi.style.display='block'; ph.style.display='none'; mi.onload=()=>{mi.style.opacity='1';}; }
+      });
+      cw.appendChild(it);
+    });
+  } else { cs.style.display='none'; }
+  // cuidados
+  const cc=CUIDADOS[p.tipo]||CUIDADOS.metal;
+  document.getElementById('m-cuidados').innerHTML=cc.map(c=>`<div class="ci"><div class="ci-i">${c.i}</div><div class="ci-t"><strong>${c.t}</strong>${c.d}</div></div>`).join('');
+  document.getElementById('modal-ov').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){ document.getElementById('modal-ov').classList.remove('open'); document.body.style.overflow=''; }
+
+// ─ ADMIN ─
+function openAdmin(){ renderAdmList(); document.getElementById('admin-ov').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeAdmin(){ document.getElementById('admin-ov').classList.remove('open'); document.body.style.overflow=''; cancelEdit(); }
+function genId(){ return 'p'+Date.now()+Math.random().toString(36).slice(2,5); }
+function handleUp(inp,ctx,idx){
+  const f=inp.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const b=e.target.result;
+    if(ctx==='main'){ imgMap['__main__']=b; const pv=document.getElementById('f-prev'); pv.src=b; pv.style.display='block'; }
+    else{ imgMap['__cor__'+idx]=b; const pv=document.getElementById('cprev-'+idx); if(pv){pv.src=b;pv.style.display='block';} }
+  };
+  r.readAsDataURL(f);
+}
+function addCor(n='',c='#aaa',img=''){
+  const idx=corCount++;
+  const d=document.createElement('div'); d.className='cor-adm-row'; d.id='cor-'+idx;
+  d.innerHTML=`<input type="color" value="${c}" id="cc-${idx}"><input type="text" placeholder="Nome ex: Azul" value="${n}" id="cn-${idx}"><label style="position:relative;cursor:pointer;"><input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;" onchange="handleUp(this,'cor',${idx})"><span style="background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.25);color:var(--ye);font-size:10px;padding:4px 8px;border-radius:5px;white-space:nowrap;">🖼️ Foto</span></label><img id="cprev-${idx}" class="cprev" src="${img}" style="${img?'display:block':''}"><button onclick="document.getElementById('cor-${idx}').remove()" style="background:rgba(200,50,50,.18);border:1px solid rgba(200,50,50,.25);color:#f88;width:24px;height:24px;border-radius:5px;cursor:pointer;font-size:13px;flex-shrink:0;">×</button>`;
+  document.getElementById('cores-list').appendChild(d);
+  if(img) imgMap['__cor__'+idx]=img;
+}
+function getCores(){
+  const cores=[];
+  document.querySelectorAll('[id^="cor-"]').forEach(d=>{
+    const idx=d.id.replace('cor-','');
+    if(!document.getElementById('cn-'+idx)) return;
+    const n=document.getElementById('cn-'+idx).value.trim();
+    const c=document.getElementById('cc-'+idx).value;
+    const img=imgMap['__cor__'+idx]||'';
+    if(n) cores.push({n,c,img});
+  });
+  return cores;
+}
+function findProd(id){ for(const l of Object.values(db)){const p=l.find(p=>p.id===id);if(p)return p;} return null; }
+function findCat(id){ for(const [k,l] of Object.entries(db)){if(l.find(p=>p.id===id))return k;} return 'canetas'; }
+function saveProduct(){
+  const nome=document.getElementById('f-nome').value.trim();
+  const cat=document.getElementById('f-cat').value;
+  if(!nome){showToast('⚠️ Digite o nome!');return;}
+  const prod={
+    id:editingId||genId(),nome,
+    mat:document.getElementById('f-mat').value.trim(),
+    area:document.getElementById('f-area').value.trim(),
+    tec:document.getElementById('f-tec').value.trim(),
+    obs:document.getElementById('f-obs').value.trim(),
+    tipo:document.getElementById('f-tipo').value,
+    img:imgMap['__main__']||(editingId?findProd(editingId)?.img||'':''),
+    cores:getCores()
+  };
+  if(editingId){
+    for(const [k,l] of Object.entries(db)){
+      const i=l.findIndex(p=>p.id===editingId);
+      if(i!==-1){ if(k===cat){db[k][i]=prod;}else{db[k].splice(i,1);db[cat].push(prod);} break;}
+    }
+    showToast('✅ Produto atualizado!');
+  } else {
+    if(!db[cat])db[cat]=[];
+    db[cat].push(prod);
+    showToast('✅ Produto adicionado!');
+  }
+  saveDB(db); renderCatalog(); renderAdmList(); clearForm();
+}
+function editProduct(id){
+  const p=findProd(id); if(!p) return;
+  editingId=id;
+  document.getElementById('adm-form-title').textContent='✏️ Editando: '+p.nome;
+  document.getElementById('f-nome').value=p.nome;
+  document.getElementById('f-cat').value=findCat(id);
+  document.getElementById('f-mat').value=p.mat||'';
+  document.getElementById('f-area').value=p.area||'';
+  document.getElementById('f-tec').value=p.tec||'';
+  document.getElementById('f-obs').value=p.obs||'';
+  document.getElementById('f-tipo').value=p.tipo||'inox';
+  if(p.img){imgMap['__main__']=p.img;const pv=document.getElementById('f-prev');pv.src=p.img;pv.style.display='block';}
+  document.getElementById('cores-list').innerHTML=''; corCount=0;
+  (p.cores||[]).forEach(c=>addCor(c.n,c.c,c.img));
+  document.getElementById('cancel-btn').style.display='block';
+  document.getElementById('admin-ov').scrollTop=0;
+}
+function deleteProduct(id){
+  if(!confirm('Excluir este produto?')) return;
+  for(const k of Object.keys(db)) db[k]=db[k].filter(p=>p.id!==id);
+  saveDB(db); renderCatalog(); renderAdmList(); showToast('🗑️ Produto removido.');
+}
+function cancelEdit(){ editingId=null; clearForm(); document.getElementById('adm-form-title').textContent='➕ Adicionar Produto'; document.getElementById('cancel-btn').style.display='none'; }
+function clearForm(){
+  ['f-nome','f-mat','f-area','f-tec','f-obs'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  imgMap={}; const pv=document.getElementById('f-prev');if(pv){pv.src='';pv.style.display='none';}
+  document.getElementById('cores-list').innerHTML=''; corCount=0; editingId=null;
+}
+function renderAdmList(){
+  const el=document.getElementById('adm-list'); el.innerHTML='';
+  const all=getAllProds();
+  if(!all.length){el.innerHTML='<div style="color:rgba(255,255,255,.3);font-size:13px;padding:10px;">Nenhum produto cadastrado.</div>';return;}
+  all.forEach(p=>{
+    const d=document.createElement('div'); d.className='adm-item';
+    const ith=p.img?`<div class="adm-ith"><img src="${p.img}" onerror="this.parentElement.innerHTML='📦'"></div>`:`<div class="adm-ith">📦</div>`;
+    d.innerHTML=`${ith}<div class="adm-iinfo"><div class="adm-iname">${p.nome}</div><div class="adm-icat">${CAT_LABELS[p._cat]||p._cat}</div></div><div class="adm-iact"><button class="ebtn" onclick="editProduct('${p.id}')">✏️</button><button class="dbtn" onclick="deleteProduct('${p.id}')">🗑️</button></div>`;
+    el.appendChild(d);
+  });
+}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600);}
+
+// ─ EVENTS ─
+document.querySelectorAll('.fil-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.fil-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active'); activeCat=this.dataset.cat;
+    renderCatalog(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+document.getElementById('search-input').addEventListener('input',function(){searchTerm=this.value.toLowerCase().trim();renderCatalog();});
+document.getElementById('modal-ov').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeAdmin();}});
+window.addEventListener('scroll',()=>{document.getElementById('scroll-top').classList.toggle('vis',window.scrollY>400);});
+
+renderCatalog();
+</script>
+</body>
+</html>
