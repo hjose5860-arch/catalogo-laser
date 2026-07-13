@@ -3,105 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⚙️ Admin — Catálogo Laser Johen</title>
+<title>⚙️ Admin — Johen Cartões</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--or:#E8650A;--ye:#F5A623;--dk:#150800;}
+:root{--tq:#00A8AD;--tq2:#00C2C7;--or:#E8650A;--ye:#F5A623;--ink:#0B2436;}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'DM Sans',sans-serif;background:#0d0400;color:#fff;min-height:100vh;}
-.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%,#7a2e00,#3d1200 40%,#0d0400);z-index:0;}
-.wrap{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:0 16px 80px;}
-
-/* HEADER */
-.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:2px solid rgba(245,166,35,.25);margin-bottom:28px;position:sticky;top:0;background:#0d0400;z-index:50;}
-.hdr-left{display:flex;align-items:center;gap:12px;}
-.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ye);letter-spacing:1px;}
-.hdr-sub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;}
-.preview-btn{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);color:var(--ye);font-size:12px;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;transition:all .2s;}
-.preview-btn:hover{background:var(--ye);color:#000;}
-
-/* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;}
-.stat-card{background:rgba(0,0,0,.5);border:1px solid rgba(245,166,35,.15);border-radius:12px;padding:14px 16px;text-align:center;}
-.stat-n{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--ye);line-height:1;}
-.stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:3px;}
-
-/* TABS */
-.tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap;}
-.tab{padding:8px 16px;border-radius:20px;border:1px solid rgba(245,166,35,.25);background:rgba(0,0,0,.4);color:rgba(255,255,255,.55);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.tab.active{background:var(--or);border-color:var(--or);color:#fff;font-weight:700;}
-
-/* FORM */
-.form-card{background:rgba(0,0,0,.5);border:1px solid rgba(245,166,35,.15);border-radius:16px;padding:22px;margin-bottom:28px;}
-.form-card h2{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid rgba(245,166,35,.15);}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-.row1{margin-bottom:12px;}
-.field label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ye);margin-bottom:5px;font-weight:600;}
-.field input,.field select,.field textarea{width:100%;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;padding:10px 13px;outline:none;transition:border-color .2s;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ye);}
-.field textarea{resize:vertical;min-height:70px;}
-.field select option{background:#1a0900;}
-
-/* UPLOAD */
-.upload-area{border:2px dashed rgba(245,166,35,.3);border-radius:10px;padding:22px;text-align:center;cursor:pointer;position:relative;transition:border-color .2s,background .2s;}
-.upload-area:hover{border-color:var(--ye);background:rgba(245,166,35,.04);}
-.upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.upload-area .u-icon{font-size:30px;display:block;margin-bottom:6px;}
-.upload-area p{font-size:11px;color:rgba(255,255,255,.35);}
-.upload-area p strong{color:var(--ye);}
-.prev-img{width:90px;height:90px;object-fit:cover;border-radius:8px;border:2px solid rgba(245,166,35,.4);margin-top:10px;display:none;}
-
-/* VARIAÇÕES */
-.cor-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px 10px;}
-.cor-row input[type=color]{width:32px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;flex-shrink:0;}
-.cor-row input[type=text]{flex:1;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:6px;color:#fff;font-size:12px;padding:6px 9px;outline:none;font-family:'DM Sans',sans-serif;}
-.cor-row input[type=text]:focus{border-color:var(--ye);}
-.cor-foto-label{position:relative;cursor:pointer;flex-shrink:0;}
-.cor-foto-label input[type=file]{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;}
-.cor-foto-btn{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.25);color:var(--ye);font-size:10px;padding:5px 10px;border-radius:6px;white-space:nowrap;}
-.cor-prev{width:30px;height:30px;object-fit:cover;border-radius:5px;border:1px solid rgba(255,255,255,.15);display:none;flex-shrink:0;}
-.cor-del{background:rgba(200,50,50,.18);border:1px solid rgba(200,50,50,.25);color:#f88;width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.add-cor-btn{background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);color:var(--ye);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;margin-top:6px;transition:all .2s;}
-.add-cor-btn:hover{background:rgba(245,166,35,.2);}
-
-/* BUTTONS */
-.btn-save{width:100%;background:linear-gradient(135deg,var(--or),var(--ye));color:#000;font-size:15px;font-weight:700;font-family:'DM Sans',sans-serif;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:10px;letter-spacing:.4px;transition:opacity .2s;}
-.btn-save:hover{opacity:.85;}
-.btn-cancel{width:100%;background:rgba(200,50,50,.12);border:1px solid rgba(200,50,50,.22);color:#f88;padding:10px;border-radius:10px;cursor:pointer;font-size:13px;font-family:'DM Sans',sans-serif;margin-top:8px;display:none;transition:all .2s;}
-.btn-cancel:hover{background:rgba(200,50,50,.22);}
-.btn-export{background:rgba(100,200,100,.12);border:1px solid rgba(100,200,100,.25);color:#8f8;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.btn-export:hover{background:rgba(100,200,100,.22);}
-.btn-import{background:rgba(100,150,255,.12);border:1px solid rgba(100,150,255,.25);color:#aaf;padding:9px 16px;border-radius:8px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;position:relative;overflow:hidden;transition:all .2s;}
-.btn-import:hover{background:rgba(100,150,255,.22);}
-.btn-import input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-
-/* PRODUCT LIST */
-.prod-list{display:flex;flex-direction:column;gap:8px;}
-.prod-item{display:flex;align-items:center;gap:12px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:10px 14px;transition:border-color .2s;}
-.prod-item:hover{border-color:rgba(245,166,35,.2);}
-.prod-thumb{width:46px;height:46px;border-radius:7px;background:#1a0800;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:20px;}
+body{font-family:'DM Sans',sans-serif;background:#F3F1EC;color:var(--ink);min-height:100vh;}
+.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,#dff7f7,#F3F1EC 45%);z-index:0;}
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:0 16px 80px;}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:2px solid rgba(0,168,173,.18);margin-bottom:24px;position:sticky;top:0;background:#F3F1EC;z-index:50;gap:12px;}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--tq);letter-spacing:1px;white-space:nowrap;}
+.hdr-sub{font-size:10px;color:rgba(11,36,54,.45);letter-spacing:2px;text-transform:uppercase;}
+.gerar-btn{background:linear-gradient(135deg,var(--tq),var(--tq2));color:#fff;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;padding:10px 20px;border:none;border-radius:10px;cursor:pointer;letter-spacing:.4px;white-space:nowrap;box-shadow:0 4px 20px rgba(0,168,173,.3);transition:opacity .2s;}
+.gerar-btn:hover{opacity:.85;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.stat-card{background:#fff;border:1px solid rgba(0,168,173,.14);border-radius:12px;padding:14px;text-align:center;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--tq);line-height:1;}
+.stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(11,36,54,.4);margin-top:3px;}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--ink);letter-spacing:1px;margin-bottom:14px;margin-top:28px;display:flex;align-items:center;gap:10px;}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(0,168,173,.3),transparent);}
+.form-card{background:#fff;border:1px solid rgba(0,168,173,.15);border-radius:14px;padding:20px;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px;}
+.row1{margin-bottom:10px;}
+.f label{display:block;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--tq);margin-bottom:4px;font-weight:600;}
+.f input,.f select,.f textarea{width:100%;background:#fafcfc;border:1px solid rgba(11,36,54,.14);border-radius:7px;color:var(--ink);font-size:12px;font-family:'DM Sans',sans-serif;padding:9px 12px;outline:none;transition:border-color .2s;}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--tq);}
+.f textarea{resize:vertical;min-height:65px;}
+.preco-box{background:rgba(0,168,173,.06);border:1px solid rgba(0,168,173,.2);border-radius:10px;padding:14px;margin-bottom:10px;}
+.preco-box-title{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--tq);font-weight:700;margin-bottom:10px;}
+.upa{border:2px dashed rgba(0,168,173,.3);border-radius:9px;padding:20px;text-align:center;cursor:pointer;position:relative;transition:border-color .2s,background .2s;}
+.upa:hover{border-color:var(--tq2);background:rgba(0,168,173,.03);}
+.upa input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upa-icon{font-size:28px;display:block;margin-bottom:5px;}
+.upa p{font-size:11px;color:rgba(11,36,54,.4);}
+.upa p strong{color:var(--tq);}
+.prev-img{width:80px;height:80px;object-fit:cover;border-radius:7px;border:2px solid rgba(0,168,173,.35);margin-top:8px;display:none;}
+.save-btn{width:100%;background:linear-gradient(135deg,var(--tq),var(--tq2));color:#fff;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;padding:13px;border:none;border-radius:9px;cursor:pointer;margin-top:12px;letter-spacing:.4px;transition:opacity .2s;}
+.save-btn:hover{opacity:.85;}
+.cancel-btn{width:100%;background:rgba(200,50,50,.08);border:1px solid rgba(200,50,50,.2);color:#c0392b;padding:10px;border-radius:9px;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;margin-top:7px;display:none;}
+.prod-list{display:flex;flex-direction:column;gap:7px;}
+.prod-item{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(11,36,54,.08);border-radius:9px;padding:9px 12px;transition:border-color .2s;}
+.prod-item:hover{border-color:rgba(0,168,173,.3);}
+.prod-thumb{width:44px;height:44px;border-radius:6px;background:#eafafa;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .prod-thumb img{width:100%;height:100%;object-fit:cover;}
 .prod-info{flex:1;min-width:0;}
-.prod-name{font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.prod-cat{font-size:10px;color:var(--ye);opacity:.75;margin-top:2px;}
-.prod-mat{font-size:10px;color:rgba(255,255,255,.35);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.prod-actions{display:flex;gap:6px;flex-shrink:0;}
-.btn-edit{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:var(--ye);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.btn-edit:hover{background:rgba(245,166,35,.3);}
-.btn-del{background:rgba(200,50,50,.15);border:1px solid rgba(200,50,50,.25);color:#f88;border-radius:7px;padding:6px 10px;cursor:pointer;font-size:11px;transition:all .2s;}
-.btn-del:hover{background:rgba(200,50,50,.25);}
-.empty-list{text-align:center;padding:30px;color:rgba(255,255,255,.25);font-size:13px;}
-
-/* TOAST */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:10px 24px;border-radius:10px;font-size:13px;z-index:900;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'DM Sans',sans-serif;}
-.toast.ok{background:#0d3300;border:1px solid #4caf50;color:#fff;}
-.toast.err{background:#330000;border:1px solid #f44336;color:#fff;}
+.prod-name{font-size:12px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.prod-cat{font-size:9px;color:var(--tq);opacity:.85;margin-top:2px;}
+.prod-preco{font-size:10px;color:rgba(11,36,54,.5);margin-top:1px;}
+.prod-actions{display:flex;gap:5px;flex-shrink:0;}
+.ebtn{background:rgba(0,168,173,.1);border:1px solid rgba(0,168,173,.25);color:var(--tq);border-radius:6px;padding:5px 11px;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;}
+.dbtn{background:rgba(200,50,50,.08);border:1px solid rgba(200,50,50,.2);color:#c0392b;border-radius:6px;padding:5px 9px;cursor:pointer;font-size:11px;}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.tab{padding:6px 13px;border-radius:18px;border:1px solid rgba(0,168,173,.25);background:#fff;color:rgba(11,36,54,.5);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab.active{background:var(--tq);border-color:var(--tq);color:#fff;font-weight:700;}
+.instrucao{background:rgba(0,168,173,.06);border:1px solid rgba(0,168,173,.18);border-radius:12px;padding:14px;margin-bottom:22px;}
+.instrucao h3{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--tq);margin-bottom:7px;}
+.instrucao ol{padding-left:18px;}
+.instrucao li{font-size:12px;color:rgba(11,36,54,.65);line-height:2;}
+.instrucao li strong{color:var(--ink);}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);padding:10px 22px;border-radius:9px;font-size:13px;z-index:900;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'DM Sans',sans-serif;color:#fff;}
+.toast.ok{background:#0b7a3d;}
+.toast.err{background:#a83232;}
 .toast.on{opacity:1;}
-
-/* SECTION DIVIDER */
-.sec-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
-.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(245,166,35,.3),transparent);}
-.tools-row{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.divider{border:none;border-top:1px solid rgba(0,168,173,.12);margin:14px 0;}
+.gh-box{background:#fff;border:1px solid rgba(0,168,173,.18);border-radius:12px;padding:16px;margin-bottom:22px;}
+.gh-box h3{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--tq);margin-bottom:5px;display:flex;align-items:center;gap:8px;}
+.gh-status{font-size:10px;padding:3px 9px;border-radius:12px;font-weight:700;letter-spacing:.5px;}
+.gh-status.off{background:rgba(200,50,50,.1);color:#c0392b;}
+.gh-status.on{background:rgba(11,122,61,.1);color:#0b7a3d;}
+.gh-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.gh-row input{flex:1;min-width:160px;background:#fafcfc;border:1px solid rgba(11,36,54,.14);border-radius:7px;color:var(--ink);font-size:12px;font-family:'DM Sans',sans-serif;padding:9px 12px;outline:none;}
+.gh-row input:focus{border-color:var(--tq);}
+.gh-btn{background:linear-gradient(135deg,var(--tq),var(--tq2));color:#fff;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;padding:9px 16px;border:none;border-radius:7px;cursor:pointer;white-space:nowrap;}
+.gh-btn.sec{background:rgba(0,168,173,.08);color:var(--tq);border:1px solid rgba(0,168,173,.25);}
+.gh-help{font-size:11px;color:rgba(11,36,54,.45);margin-top:8px;line-height:1.7;}
+.gh-help a{color:var(--tq);}
 </style>
 </head>
 <body>
@@ -109,336 +86,634 @@ body{font-family:'DM Sans',sans-serif;background:#0d0400;color:#fff;min-height:1
 <div class="wrap">
 
 <div class="hdr">
-  <div class="hdr-left">
-    <svg style="height:34px;" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
-      <text y="36" font-size="38" font-family="serif" font-weight="900" fill="white" letter-spacing="-1">JOHEN</text>
-      <text x="4" y="47" font-size="9" font-family="sans-serif" fill="white" opacity="0.55" letter-spacing="3">ARTES GRÁFICAS</text>
+  <div>
+    <svg style="height:30px;" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+      <text y="36" font-size="34" font-family="serif" font-weight="900" fill="#0B2436" letter-spacing="-1">JOHEN</text>
+      <text x="4" y="47" font-size="8" font-family="sans-serif" fill="#0B2436" opacity="0.55" letter-spacing="3">ARTES GRÁFICAS</text>
     </svg>
-    <div>
-      <div class="hdr-sub">Painel de Administração</div>
-    </div>
+    <div class="hdr-sub">Painel Admin · Cartões</div>
   </div>
-  <div style="display:flex;gap:8px;align-items:center;">
-    <a href="index.html" target="_blank" class="preview-btn">👁️ Ver Site</a>
+  <div style="display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+    <label style="background:rgba(232,101,10,.08);border:1px solid rgba(232,101,10,.3);color:var(--or);font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;padding:8px 13px;border-radius:9px;cursor:pointer;white-space:nowrap;">
+      📂 Importar DB
+      <input type="file" accept=".json" style="display:none;" onchange="importarDB(this)">
+    </label>
+    <button style="background:rgba(232,101,10,.08);border:1px solid rgba(232,101,10,.3);color:var(--or);font-size:11px;font-weight:700;font-family:'DM Sans',sans-serif;padding:8px 13px;border-radius:9px;cursor:pointer;white-space:nowrap;" onclick="exportarDB()">💾 Exportar DB</button>
+    <button class="gerar-btn" onclick="gerarSite()">⬇️ Gerar catalogo.html</button>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-row" id="stats-row">
+<div class="instrucao">
+  <h3>🚀 Como atualizar o site</h3>
+  <ol>
+    <li>Edite os produtos abaixo — a tabela de cartões de visita já vem carregada</li>
+    <li>Clique em <strong>"💾 Exportar DB"</strong> — salva um <code style="background:rgba(0,168,173,.1);padding:1px 5px;border-radius:4px;font-size:11px;">johen_cartoes_db.json</code> com todos os produtos</li>
+    <li>Da próxima vez que abrir o admin, clique em <strong>"📂 Importar DB"</strong> e selecione o arquivo salvo</li>
+    <li>Clique em <strong>"⬇️ Gerar catalogo.html"</strong> → o arquivo baixa automaticamente</li>
+    <li>GitHub → cria/edita <strong>cartoes.html</strong> (ou index.html da linha) → cola o conteúdo → <strong>Commit</strong></li>
+  </ol>
+</div>
+
+<div class="gh-box">
+  <h3>☁️ Sincronização com GitHub <span class="gh-status off" id="gh-status">Não conectado</span></h3>
+  <div class="gh-row">
+    <input type="password" id="gh-token" placeholder="Cole seu Personal Access Token aqui" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false">
+    <button class="gh-btn" onclick="conectarGitHub()">Conectar</button>
+    <button class="gh-btn sec" onclick="ghSave(true)">☁️ Salvar agora</button>
+    <button class="gh-btn sec" onclick="ghLoad(true)">⬇️ Carregar do GitHub</button>
+  </div>
+  <div class="gh-help">
+    Depois de conectar, toda vez que você salvar, editar ou excluir um cartão, ele é enviado automaticamente pro arquivo <code style="background:rgba(0,168,173,.1);padding:1px 5px;border-radius:4px;">db-cartoes.json</code> no repositório <strong>catalogo</strong> — assim os dados ficam disponíveis em qualquer aparelho.<br>
+    Não tem o token ainda? No GitHub (Safari): toque no seu perfil → <strong>Settings</strong> → <strong>Developer settings</strong> → <strong>Personal access tokens</strong> → <strong>Fine-grained tokens</strong> → <strong>Generate new token</strong> → em "Repository access" escolha só o repositório <strong>catalogo</strong> → em "Permissions" ative <strong>Contents: Read and write</strong> → gera e copia o token pra cá.
+  </div>
+</div>
+
+<div class="stats-row">
   <div class="stat-card"><div class="stat-n" id="st-total">0</div><div class="stat-l">Produtos</div></div>
-  <div class="stat-card"><div class="stat-n" id="st-cats">7</div><div class="stat-l">Categorias</div></div>
-  <div class="stat-card"><div class="stat-n" id="st-com-foto">0</div><div class="stat-l">Com Foto</div></div>
-  <div class="stat-card"><div class="stat-n" id="st-sem-foto">0</div><div class="stat-l">Sem Foto Real</div></div>
+  <div class="stat-card"><div class="stat-n" id="st-foto">0</div><div class="stat-l">Com Foto</div></div>
+  <div class="stat-card"><div class="stat-n" id="st-preco">0</div><div class="stat-l">Com Preço</div></div>
 </div>
 
-<!-- TOOLS -->
-<div class="sec-title">🛠️ Ferramentas</div>
-<div class="tools-row">
-  <button class="btn-export" onclick="exportDB()">📥 Exportar Catálogo (JSON)</button>
-  <label class="btn-import">📤 Importar Catálogo (JSON)<input type="file" accept=".json" onchange="importDB(this)"></label>
-  <button class="btn-export" onclick="clearAll()" style="background:rgba(200,50,50,.1);border-color:rgba(200,50,50,.25);color:#f88;">🗑️ Limpar Tudo</button>
-</div>
-
-<!-- FORM -->
+<div class="sec-title" id="form-title-sec">➕ Adicionar Cartão</div>
 <div class="form-card">
-  <h2 id="form-title">➕ Adicionar Produto</h2>
   <input type="hidden" id="edit-id">
 
   <div class="row2">
-    <div class="field"><label>Nome do Produto *</label><input type="text" id="f-nome" placeholder="Ex: Caneta Metal Slim"></div>
-    <div class="field"><label>Categoria *</label>
+    <div class="f"><label>Nome *</label><input type="text" id="f-nome" placeholder="Ex: Couché 300g Fosco + Verniz Localizado"></div>
+    <div class="f"><label>Categoria *</label>
       <select id="f-cat">
-        <option value="canetas">✏️ Canetas</option>
-        <option value="kits">🎁 Kits Executivos</option>
-        <option value="canecas">☕ Canecas & Copos</option>
-        <option value="garrafas">🍶 Garrafas</option>
-        <option value="squeezes">💧 Squeezes</option>
-        <option value="couro">📓 Couro & Agendas</option>
-        <option value="outros">🪵 Outros</option>
+        <option value="couche_brilho">✨ Couché Brilho</option>
+        <option value="fosco_verniz">🖤 Fosco + Verniz</option>
+        <option value="fosco_arred">🔵 Fosco + Canto Arredondado</option>
+        <option value="hot_stamping">✨ Hot Stamping</option>
+        <option value="outros">🃏 Outros</option>
       </select>
     </div>
   </div>
   <div class="row2">
-    <div class="field"><label>Material</label><input type="text" id="f-mat" placeholder="Ex: Aço inoxidável 304. Parede dupla."></div>
-    <div class="field"><label>Área de Gravação</label><input type="text" id="f-area" placeholder="Ex: 8 × 5 cm"></div>
+    <div class="f"><label>Papel / Gramatura</label><input type="text" id="f-papel" placeholder="Ex: Couché 300g"></div>
+    <div class="f"><label>Acabamento</label><input type="text" id="f-acab" placeholder="Ex: Fosco + Canto Arredondado"></div>
   </div>
-  <div class="row1 field"><label>Técnica Recomendada</label><input type="text" id="f-tec" placeholder="Ex: Laser de fibra com eixo rotativo"></div>
-  <div class="row1 field"><label>Observações da Gráfica</label><textarea id="f-obs" placeholder="Dicas técnicas, potência recomendada, resultado esperado..."></textarea></div>
-  <div class="row1 field"><label>Tipo de Material (para cuidados automáticos)</label>
-    <select id="f-tipo">
-      <option value="inox">Inox / Aço Inoxidável</option>
-      <option value="aluminio">Alumínio Anodizado</option>
-      <option value="metal">Metal / Liga Metálica</option>
-      <option value="couro">Couro Sintético (PU)</option>
-      <option value="mdf">MDF</option>
-      <option value="vidro">Vidro</option>
+  <div class="row1 f"><label>Impressão</label>
+    <select id="f-impressao">
+      <option value="Frente">Frente</option>
+      <option value="Frente e Verso">Frente e Verso</option>
+      <option value="Frente / Frente e Verso">Frente / Frente e Verso</option>
     </select>
   </div>
+  <div class="row1 f"><label>Observações</label><textarea id="f-obs" placeholder="Ex: disponível de 100 a 500 un."></textarea></div>
 
-  <!-- FOTO PRINCIPAL -->
-  <div class="row1 field">
-    <label>Foto Principal do Produto</label>
-    <div class="upload-area">
-      <input type="file" accept="image/*" onchange="handleUp(this,'main')">
-      <span class="u-icon">🖼️</span>
-      <p>Clique ou arraste a foto aqui<br><strong>JPG, PNG, WEBP — recomendado 600×600px</strong></p>
-      <img id="f-prev" class="prev-img">
+  <hr class="divider">
+
+  <div class="preco-box">
+    <div class="preco-box-title">💰 Preços por Quantidade</div>
+    <div style="font-size:10px;color:rgba(11,36,54,.45);margin-bottom:10px;">Se deixar "100 un." em branco, calculamos automaticamente 10% a menos do preço de 500 un.</div>
+    <div class="row3">
+      <div class="f"><label>Preço 100 un. (R$)</label><input type="number" id="f-preco100" placeholder="Ex: 60.00" step="0.01" min="0"></div>
+      <div class="f"><label>Preço 500 un. (R$)</label><input type="number" id="f-preco500" placeholder="Ex: 145.00" step="0.01" min="0"></div>
+      <div class="f"><label>Preço 1.000 un. (R$)</label><input type="number" id="f-preco1000" placeholder="Ex: 160.00" step="0.01" min="0"></div>
     </div>
   </div>
 
-  <!-- VARIAÇÕES -->
-  <div class="row1 field">
-    <label>Variações de Cor / Modelo</label>
-    <div id="cores-list"></div>
-    <button class="add-cor-btn" onclick="addCor()">+ Adicionar Variação</button>
+  <div class="row1 f">
+    <label>Foto do Cartão (opcional)</label>
+    <div class="upa">
+      <input type="file" accept="image/*" onchange="handleUp(this,'main')">
+      <span class="upa-icon">📷</span>
+      <p><strong>Toque para enviar</strong> uma foto de referência</p>
+    </div>
+    <img class="prev-img" id="f-prev">
   </div>
 
-  <button class="btn-save" onclick="saveProduct()">💾 Salvar Produto no Catálogo</button>
-  <button class="btn-cancel" id="btn-cancel" onclick="cancelEdit()">✕ Cancelar Edição</button>
+  <button class="save-btn" onclick="saveProduct()">💾 Salvar Cartão</button>
+  <button class="cancel-btn" id="cancel-btn" onclick="cancelEdit()">Cancelar edição</button>
 </div>
 
-<!-- PRODUCT LIST -->
-<div class="sec-title">📦 Produtos Cadastrados</div>
-
-<!-- TABS CATEGORIA -->
-<div class="tabs" id="tabs">
+<div class="sec-title">📋 Produtos Cadastrados</div>
+<div class="tabs">
   <button class="tab active" data-cat="all">Todos</button>
-  <button class="tab" data-cat="canetas">✏️ Canetas</button>
-  <button class="tab" data-cat="kits">🎁 Kits</button>
-  <button class="tab" data-cat="canecas">☕ Canecas</button>
-  <button class="tab" data-cat="garrafas">🍶 Garrafas</button>
-  <button class="tab" data-cat="squeezes">💧 Squeezes</button>
-  <button class="tab" data-cat="couro">📓 Couro</button>
-  <button class="tab" data-cat="outros">🪵 Outros</button>
+  <button class="tab" data-cat="couche_brilho">✨ Brilho</button>
+  <button class="tab" data-cat="fosco_verniz">🖤 Fosco+Verniz</button>
+  <button class="tab" data-cat="fosco_arred">🔵 C.Arred.</button>
+  <button class="tab" data-cat="hot_stamping">✨ Hot Stamp</button>
+  <button class="tab" data-cat="outros">🃏 Outros</button>
 </div>
-
 <div class="prod-list" id="prod-list"></div>
 
-</div><!-- /wrap -->
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const STORAGE_KEY='johen_laser_v3';
-const CAT_LABELS={canetas:'✏️ Canetas',kits:'🎁 Kits',canecas:'☕ Canecas',garrafas:'🍶 Garrafas',squeezes:'💧 Squeezes',couro:'📓 Couro',outros:'🪵 Outros'};
-const SVGS={
-  caneta:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="42" y="10" width="16" height="65" rx="6" fill="#c8a84b"/><rect x="44" y="12" width="12" height="55" rx="4" fill="#e8c96a"/><ellipse cx="50" cy="78" rx="6" ry="9" fill="#aaa"/><rect x="46" y="8" width="8" height="8" rx="2" fill="#888"/></svg>`,
-  kit:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="30" width="70" height="50" rx="6" fill="#5d4037"/><rect x="15" y="30" width="70" height="12" rx="6" fill="#795548"/><rect x="40" y="24" width="20" height="18" rx="3" fill="#a1887f" stroke="#795548" stroke-width="2"/></svg>`,
-  caneca:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="25" width="48" height="55" rx="8" fill="#aaa"/><rect x="22" y="27" width="44" height="51" rx="6" fill="#c8c8c8"/><path d="M68 40 Q85 40 85 55 Q85 70 68 70" stroke="#aaa" stroke-width="8" fill="none" stroke-linecap="round"/></svg>`,
-  garrafa:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="35" y="5" width="30" height="12" rx="4" fill="#888"/><rect x="30" y="15" width="40" height="75" rx="10" fill="#aaa"/><rect x="32" y="17" width="36" height="71" rx="8" fill="#c8c8c8"/></svg>`,
-  squeeze:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="32" y="8" width="36" height="78" rx="12" fill="#4caf50"/><rect x="34" y="10" width="32" height="74" rx="10" fill="#66bb6a"/><rect x="38" y="4" width="24" height="10" rx="4" fill="#388e3c"/></svg>`,
-  couro:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="15" y="12" width="70" height="80" rx="5" fill="#5d4037"/><rect x="17" y="14" width="66" height="76" rx="4" fill="#795548"/><rect x="88" y="30" width="4" height="50" rx="2" fill="#f5a623"/></svg>`,
-  outros:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="38" r="22" fill="none" stroke="#c8a84b" stroke-width="8"/><rect x="46" y="58" width="8" height="28" rx="3" fill="#c8a84b"/></svg>`,
-};
-function getSVG(cat){const m={canetas:'caneta',kits:'kit',canecas:'caneca',garrafas:'garrafa',squeezes:'squeeze',couro:'couro'};return SVGS[m[cat]]||SVGS.outros;}
-function mkImg(cat){return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(getSVG(cat))}`;}
+const CAT_LABELS={couche_brilho:'✨ Couché Brilho',fosco_verniz:'🖤 Fosco + Verniz',fosco_arred:'🔵 Fosco + Canto Arredondado',hot_stamping:'✨ Hot Stamping',outros:'🃏 Outros'};
+const EMOJIS={couche_brilho:'✨',fosco_verniz:'🖤',fosco_arred:'🔵',hot_stamping:'✨',outros:'🃏'};
 
-function loadDB(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return JSON.parse(r);}catch(e){}return defaultDB();}
-function saveDB(d){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}catch(e){showToast('Erro ao salvar! Arquivo pode ser muito grande.','err');}}
+const GH_OWNER='JohenDesigner',GH_REPO='catalogo',GH_PATH='db-cartoes.json',GH_BRANCH='main';
+let ghToken=null,ghSha=null,ghSyncing=false;
 
-function defaultDB(){
-  const I=(cat)=>mkImg(cat);
-  return{
-    canetas:[
-      {id:'cn1',nome:'Caneta Metal Borboleta',mat:'Liga metálica. Mecanismo twist. Carga azul.',area:'6 × 1 cm',tec:'Laser de fibra — remove laca',obs:'Logomarcas finas e textos. Ideal para brindes femininos.',tipo:'metal',img:I('canetas'),cores:[{n:'Dourado',c:'#c8a84b',img:I('canetas')},{n:'Prata',c:'#aaa',img:I('canetas')}]},
-      {id:'cn2',nome:'Caneta Metal Coração',mat:'Liga metálica polida. Ponteira em resina.',area:'5 × 1 cm',tec:'Laser de fibra',obs:'Apelo feminino. Brindes de beleza e moda.',tipo:'metal',img:I('canetas'),cores:[{n:'Rosa',c:'#e897b0',img:I('canetas')},{n:'Prata',c:'#c0c0c0',img:I('canetas')}]},
-      {id:'cn3',nome:'Caneta Metal Coroa',mat:'Metal acabamento matte. Detalhes cromados.',area:'5,5 × 1 cm',tec:'Laser de fibra',obs:'Matte facilita gravação com alto contraste.',tipo:'metal',img:I('canetas'),cores:[]},
-      {id:'cn4',nome:'Caneta Metal Rosa',mat:'Metal com laca rosa. Clip metálico.',area:'6 × 1 cm',tec:'Laser de fibra',obs:'Laca rosa remove expondo metal dourado.',tipo:'metal',img:I('canetas'),cores:[]},
-      {id:'cn5',nome:'Caneta Semi Metal',mat:'Alumínio anodizado. Tampa e clip ABS.',area:'6 × 1 cm',tec:'Laser de fibra',obs:'Alumínio anodizado: marcação clara e permanente.',tipo:'aluminio',img:I('canetas'),cores:[]},
-      {id:'cn6',nome:'Caneta Metal Slim',mat:'Liga metálica fina. Tampa magnética.',area:'5,5 × 0,8 cm',tec:'Laser de fibra',obs:'Perfil fino. Ótima para logotipos compactos.',tipo:'metal',img:I('canetas'),cores:[]},
-      {id:'cn7',nome:'Caneta Roller Semi Metal',mat:'Roller ball. Alumínio e ABS. Carga preta.',area:'6 × 1 cm',tec:'Laser de fibra',obs:'Escrita mais fluida. Premium corporativo.',tipo:'aluminio',img:I('canetas'),cores:[]},
+function fmtPreco(v){return 'R$ '+parseFloat(v).toFixed(2).replace('.',',');}
+
+function seedDB(){
+  return {
+    couche_brilho:[
+      {id:'p1',nome:'Couché 250g — Couché Brilho (Frente)',papel:'Couché 250g',acab:'Couché Brilho',impressao:'Frente',obs:'',preco100:'76.50',preco500:'85.00',preco1000:'115.00',img:''},
+      {id:'p2',nome:'Couché 250g — Couché Brilho (Frente e Verso)',papel:'Couché 250g',acab:'Couché Brilho',impressao:'Frente e Verso',obs:'',preco100:'103.50',preco500:'115.00',preco1000:'135.00',img:''},
+      {id:'p3',nome:'Couché 300g — Couché Brilho',papel:'Couché 300g',acab:'Couché Brilho',impressao:'Frente / Frente e Verso',obs:'',preco100:'130.50',preco500:'145.00',preco1000:'160.00',img:''}
     ],
-    kits:[
-      {id:'kt1',nome:'Conjunto Caneta + Lapiseira Metal',mat:'Caneta e lapiseira matte. Estojo incluso.',area:'5,5 × 1 cm/peça',tec:'Laser de fibra (gravar as duas)',obs:'Gravar em sequência para alinhamento idêntico.',tipo:'metal',img:I('kits'),cores:[]},
-      {id:'kt2',nome:'Kit Executivo 3 Peças',mat:'Caneta + lapiseira + régua. Estojo couro PU.',area:'5,5 × 1 cm',tec:'Laser fibra + CO₂',obs:'Combo premium. Gravar estojo e caneta.',tipo:'couro',img:I('kits'),cores:[]},
-      {id:'kt3',nome:'Kit Caneta + Porta Cartão',mat:'Caneta metal + porta cartão PU.',area:'Caneta 5 × 1 cm',tec:'Laser fibra + CO₂',obs:'Alta percepção de valor. Ideal para VIP.',tipo:'couro',img:I('kits'),cores:[]},
+    fosco_verniz:[
+      {id:'p4',nome:'Couché 300g — Fosco + Verniz Localizado',papel:'Couché 300g',acab:'Fosco + Verniz Localizado',impressao:'Frente / Frente e Verso',obs:'',preco100:'157.50',preco500:'175.00',preco1000:'214.00',img:''}
     ],
-    canecas:[
-      {id:'ca1',nome:'Caneca Inox 400ml',mat:'Aço inoxidável 304. Parede simples.',area:'8 × 5 cm',tec:'Laser de fibra (oxidação)',obs:'Inox 304 grava excelente.',tipo:'inox',img:I('canecas'),cores:[]},
-      {id:'ca2',nome:'Caneca Inox PD 270ml',mat:'Inox 304 parede dupla a vácuo.',area:'7 × 4 cm',tec:'Laser fibra + eixo rotativo',obs:'Parede dupla exige eixo rotativo.',tipo:'inox',img:I('canecas'),cores:[]},
-      {id:'ca3',nome:'Caneca Inox PD 350ml',mat:'Inox 304 parede dupla. Tampa hermética.',area:'8 × 5 cm',tec:'Laser fibra com eixo rotativo',obs:'Produto premium. Alta saída corporativa.',tipo:'inox',img:I('canecas'),cores:[]},
-      {id:'ca4',nome:'Copo Inox 480ml Powder Coat',mat:'Inox com powder coat. Sem alça.',area:'9 × 5 cm',tec:'Laser fibra — remove coating',obs:'Branco revela inox polido.',tipo:'inox',img:I('canecas'),cores:[]},
-      {id:'ca5',nome:'Caneca Inox 300ml Colorida',mat:'Inox 304 + powder coat colorido.',area:'7 × 4 cm',tec:'Laser fibra — remove coating',obs:'Várias cores. Ideal para kits.',tipo:'inox',img:I('canecas'),cores:[]},
+    fosco_arred:[
+      {id:'p5',nome:'Couché 300g — Fosco + Canto Arredondado',papel:'Couché 300g',acab:'Fosco + Canto Arredondado',impressao:'Frente / Frente e Verso',obs:'',preco100:'186.30',preco500:'207.00',preco1000:'230.00',img:''}
     ],
-    garrafas:[
-      {id:'g1',nome:'Garrafa Inox 500ml',mat:'Inox 304. Parede dupla. Tampa esportiva.',area:'10 × 6 cm',tec:'Laser fibra com eixo rotativo',obs:'Inox escovado com gravação fosco elegante.',tipo:'inox',img:I('garrafas'),cores:[]},
-      {id:'g2',nome:'Garrafa Inox 650ml',mat:'Inox 304 parede dupla. Tampa hermética.',area:'11 × 6 cm',tec:'Laser fibra com eixo rotativo',obs:'Muito solicitada para brindes esportivos.',tipo:'inox',img:I('garrafas'),cores:[]},
-      {id:'g3',nome:'Garrafa Inox 800ml Powder Coat',mat:'Inox com powder coat. Tampa esportiva.',area:'12 × 7 cm',tec:'Laser fibra — remove coating',obs:'Branco/preto ideais para logos detalhadas.',tipo:'inox',img:I('garrafas'),cores:[]},
-      {id:'g4',nome:'Garrafa Térmica 500ml',mat:'Inox 304 escovado. Parede dupla.',area:'10 × 6 cm',tec:'Laser fibra',obs:'Acabamento fosco muito elegante.',tipo:'inox',img:I('garrafas'),cores:[]},
-      {id:'g5',nome:'Garrafa Térmica 700ml',mat:'Inox 304. 12h quente / 24h frio.',area:'13 × 7 cm',tec:'Laser fibra com eixo rotativo',obs:'Grande área. Logo + slogan na mesma peça.',tipo:'inox',img:I('garrafas'),cores:[]},
-      {id:'g6',nome:'Garrafa Térmica 1 Litro',mat:'Inox 304 parede dupla. Alça.',area:'14 × 8 cm',tec:'Laser fibra com eixo rotativo',obs:'Maior área. Muito usada em grandes empresas.',tipo:'inox',img:I('garrafas'),cores:[]},
+    hot_stamping:[
+      {id:'p6',nome:'Couché 300g — Fosco + Hot Stamping',papel:'Couché 300g',acab:'Fosco + Hot Stamping',impressao:'Frente / Frente e Verso',obs:'Disponível somente de 100 a 500 un.',preco100:'200.00',preco500:'350.00',preco1000:'',img:''},
+      {id:'p7',nome:'Couché 300g — Hot Stamping + Canto Arredondado',papel:'Couché 300g',acab:'Hot Stamping + Canto Arredondado',impressao:'Frente / Frente e Verso',obs:'Disponível de 500 a 1.000 un.',preco100:'',preco500:'200.00',preco1000:'350.00',img:''}
     ],
-    squeezes:[
-      {id:'s1',nome:'Squeeze Alumínio 550ml',mat:'Alumínio anodizado. Tampa plástica.',area:'11 × 6 cm',tec:'Laser fibra — anodizado',obs:'Prata sobre fundo colorido.',tipo:'aluminio',img:I('squeezes'),cores:[]},
-      {id:'s2',nome:'Squeeze Alumínio 750ml',mat:'Alumínio anodizado. 750ml.',area:'12 × 6 cm',tec:'Laser fibra — anodizado',obs:'Alta procura no segmento fitness.',tipo:'aluminio',img:I('squeezes'),cores:[]},
-      {id:'s3',nome:'Squeeze Inox 600ml',mat:'Inox 304. Tampa esportiva com trava.',area:'11 × 6 cm',tec:'Laser fibra com eixo rotativo',obs:'Durabilidade máxima.',tipo:'inox',img:I('squeezes'),cores:[]},
-      {id:'s4',nome:'Squeeze Inox 880ml Powder Coat',mat:'Inox com powder coat. Parede dupla.',area:'14 × 7 cm',tec:'Laser fibra — remove coating',obs:'Popular no segmento feminino.',tipo:'inox',img:I('squeezes'),cores:[]},
-    ],
-    couro:[
-      {id:'co1',nome:'Agenda Couro Sintético 2026',mat:'Capa PU. Miolo offset 70g. Elástico.',area:'15 × 10 cm',tec:'Laser CO₂',obs:'Potência moderada. Testar antes.',tipo:'couro',img:I('couro'),cores:[]},
-      {id:'co2',nome:'Agenda Diária 2026',mat:'PU couro. Miolo diário. Porta-caneta.',area:'15 × 10 cm',tec:'Laser CO₂',obs:'Maior percepção de valor.',tipo:'couro',img:I('couro'),cores:[]},
-      {id:'co3',nome:'Caderneta Couro A5',mat:'PU couro. 80 folhas pautadas.',area:'13 × 9 cm',tec:'Laser CO₂',obs:'Ótimo para kits executivos.',tipo:'couro',img:I('couro'),cores:[]},
-      {id:'co4',nome:'Caderneta com Porta-Caneta',mat:'PU couro. Porta-caneta embutido.',area:'13 × 9 cm',tec:'Laser CO₂',obs:'Praticidade extra. Ideal para kit.',tipo:'couro',img:I('couro'),cores:[]},
-      {id:'co5',nome:'Bloco Anotações Couro Preto',mat:'PU preto. 100 folhas. Clip metálico.',area:'14 × 10 cm',tec:'Laser CO₂',obs:'Gravação bege/caramelo sobre preto.',tipo:'couro',img:I('couro'),cores:[]},
-      {id:'co6',nome:'Pasta Caderno Couro Executiva',mat:'PU couro. Fecho magnético. Suporte tablet.',area:'25 × 18 cm',tec:'Laser CO₂',obs:'Grande área. Logo em tamanho real.',tipo:'couro',img:I('couro'),cores:[]},
-    ],
-    outros:[
-      {id:'o1',nome:'Chaveiro Metal Retangular',mat:'Metal colorido. Argola inox.',area:'4 × 2,5 cm',tec:'Laser de fibra',obs:'Usar logo simples ou iniciais.',tipo:'metal',img:I('outros'),cores:[]},
-      {id:'o2',nome:'Chaveiro Inox Redondo',mat:'Inox polido. Argola dupla. Ø 4 cm.',area:'3,5 × 3,5 cm',tec:'Laser de fibra',obs:'Alto brilho e contraste.',tipo:'inox',img:I('outros'),cores:[]},
-      {id:'o3',nome:'Garrafa Vidro 330ml',mat:'Vidro borossilicato. Tampa bambu.',area:'8 × 5 cm',tec:'Laser CO₂ — efeito jateamento',obs:'Fosco sobre transparente. Premium.',tipo:'vidro',img:I('outros'),cores:[]},
-      {id:'o4',nome:'Garrafa Vidro 500ml',mat:'Vidro. Tampa metálica. Alça silicone.',area:'10 × 6 cm',tec:'Laser CO₂',obs:'Tendência sustentável.',tipo:'vidro',img:I('outros'),cores:[]},
-      {id:'o5',nome:'Calendário Permanente MDF',mat:'MDF 3mm peças encaixáveis.',area:'20 × 15 cm',tec:'Laser CO₂',obs:'Resultado limpo e texturizado.',tipo:'mdf',img:I('outros'),cores:[]},
-      {id:'o6',nome:'Suporte Celular Inox',mat:'Inox 304 escovado. Ajustável.',area:'5 × 3 cm',tec:'Laser de fibra',obs:'Logo visível na mesa todo dia.',tipo:'inox',img:I('outros'),cores:[]},
-      {id:'o7',nome:'Pen Drive Metal USB 3.0',mat:'Liga metálica. Tampa removível. 16/32GB.',area:'4 × 0,8 cm',tec:'Laser de fibra',obs:'Alta retenção — cliente usa todo dia.',tipo:'metal',img:I('outros'),cores:[]},
-    ]
+    outros:[]
   };
 }
 
-let db=loadDB(), filterCat='all', editingId=null, imgMap={}, corCount=0;
-
-// ─── STATS ───
-function updateStats(){
-  const all=Object.values(db).flat();
-  const comFoto=all.filter(p=>p.img&&!p.img.includes('svg+xml')).length;
-  document.getElementById('st-total').textContent=all.length;
-  document.getElementById('st-com-foto').textContent=comFoto;
-  document.getElementById('st-sem-foto').textContent=all.length-comFoto;
+let memDB=null;
+function loadDB(){
+  try{
+    const s=localStorage.getItem('johen_cartoes_db');
+    if(s)return JSON.parse(s);
+  }catch(e){/* localStorage indisponível neste navegador/contexto */}
+  return seedDB();
+}
+function saveDB(d){
+  memDB=d;
+  try{localStorage.setItem('johen_cartoes_db',JSON.stringify(d));}catch(e){/* segue só em memória nesta sessão */}
+  if(ghToken)ghSave(false);
 }
 
-// ─── LIST ───
+function setGhStatus(on,msg){
+  const el=document.getElementById('gh-status');
+  el.className='gh-status '+(on?'on':'off');
+  el.textContent=msg||(on?'Conectado':'Não conectado');
+}
+
+function conectarGitHub(){
+  const t=document.getElementById('gh-token').value.trim();
+  if(!t){showToast('⚠️ Cole o token primeiro','err');return;}
+  ghToken=t;
+  try{localStorage.setItem('johen_gh_token',t);}catch(e){}
+  setGhStatus(true,'Conectando...');
+  ghLoad(true);
+}
+
+function utf8ToB64(str){return btoa(unescape(encodeURIComponent(str)));}
+function b64ToUtf8(str){return decodeURIComponent(escape(atob(str)));}
+
+async function ghLoad(manual){
+  if(!ghToken){if(manual)showToast('⚠️ Conecte o GitHub primeiro','err');return;}
+  try{
+    const res=await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}?ref=${GH_BRANCH}`,{
+      headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json'}
+    });
+    if(res.status===404){
+      setGhStatus(true,'Conectado (arquivo novo)');
+      if(manual)showToast('☁️ Ainda não existe backup no GitHub — clique em "Salvar agora" pra criar.');
+      return;
+    }
+    if(res.status===401){throw new Error('Token inválido ou expirado');}
+    if(res.status===403){throw new Error('Sem permissão — confira se marcou "Contents: Read and write" e selecionou o repositório certo');}
+    if(!res.ok){throw new Error('HTTP '+res.status);}
+    const data=await res.json();
+    ghSha=data.sha;
+    try{
+      const json=b64ToUtf8((data.content||'').replace(/\n/g,''));
+      db=JSON.parse(json);
+      try{localStorage.setItem('johen_cartoes_db',JSON.stringify(db));}catch(e){}
+      renderList();
+      setGhStatus(true,'Conectado');
+      if(manual)showToast('✅ Produtos carregados do GitHub!');
+    }catch(parseErr){
+      setGhStatus(true,'Conectado (arquivo vazio)');
+      if(manual)showToast('⚠️ O arquivo no GitHub está vazio/corrompido. Clique em "☁️ Salvar agora" pra substituir pelos produtos daqui.','err');
+    }
+  }catch(e){
+    setGhStatus(false,'Erro de conexão');
+    if(manual)showToast('❌ '+(e.message||'Não consegui conectar ao GitHub')+'.','err');
+  }
+}
+
+async function ghSave(manual){
+  if(!ghToken){if(manual)showToast('⚠️ Conecte o GitHub primeiro','err');return;}
+  if(ghSyncing)return;
+  ghSyncing=true;
+  try{
+    const content=utf8ToB64(JSON.stringify(db,null,2));
+    const body={message:'Atualiza catálogo de cartões',content,branch:GH_BRANCH};
+    if(ghSha)body.sha=ghSha;
+    const res=await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_PATH}`,{
+      method:'PUT',
+      headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!res.ok){
+      if(res.status===409||res.status===422){
+        await ghLoad(false);
+        setGhStatus(false,'Conflito — recarregue');
+        if(manual)showToast('⚠️ Alguém salvou antes de você. Toque em "Carregar do GitHub" e tente de novo.','err');
+        ghSyncing=false;return;
+      }
+      throw new Error('HTTP '+res.status);
+    }
+    const data=await res.json();
+    ghSha=data.content.sha;
+    setGhStatus(true,'Conectado');
+    if(manual)showToast('☁️ Salvo no GitHub!');
+  }catch(e){
+    setGhStatus(false,'Erro ao salvar');
+    if(manual)showToast('❌ Não consegui salvar no GitHub.','err');
+  }
+  ghSyncing=false;
+}
+
+(function initGh(){
+  try{
+    const t=localStorage.getItem('johen_gh_token');
+    if(t){ghToken=t;document.getElementById('gh-token').value=t;setGhStatus(true,'Conectando...');ghLoad(false);}
+  }catch(e){}
+})();
+
+let db=loadDB(), filterCat='all', editingId=null, imgMap={};
+
+function updateStats(){
+  const all=Object.values(db).flat();
+  document.getElementById('st-total').textContent=all.length;
+  document.getElementById('st-foto').textContent=all.filter(p=>p.img).length;
+  document.getElementById('st-preco').textContent=all.filter(p=>p.preco500&&parseFloat(p.preco500)>0).length;
+}
+
 function renderList(){
-  const el=document.getElementById('prod-list'); el.innerHTML='';
+  const el=document.getElementById('prod-list');el.innerHTML='';
   const all=Object.entries(db).flatMap(([cat,list])=>list.map(p=>({...p,_cat:cat})));
   const f=filterCat==='all'?all:all.filter(p=>p._cat===filterCat);
-  if(!f.length){el.innerHTML='<div class="empty-list">Nenhum produto nesta categoria.</div>';return;}
+  if(!f.length){el.innerHTML='<div style="color:rgba(11,36,54,.35);font-size:13px;padding:14px;">Nenhum produto aqui.</div>';updateStats();return;}
   f.forEach(p=>{
-    const d=document.createElement('div'); d.className='prod-item';
-    const isReal=p.img&&!p.img.includes('svg+xml');
-    const thumb=isReal?`<div class="prod-thumb"><img src="${p.img}" onerror="this.parentElement.innerHTML='📦'"></div>`:`<div class="prod-thumb">${getSVGThumb(p._cat)}</div>`;
-    d.innerHTML=`${thumb}<div class="prod-info"><div class="prod-name">${p.nome}</div><div class="prod-cat">${CAT_LABELS[p._cat]||p._cat} ${isReal?'📸':'🔲'}</div><div class="prod-mat">${(p.mat||'').substring(0,50)}</div></div><div class="prod-actions"><button class="btn-edit" onclick="editProd('${p.id}')">✏️ Editar</button><button class="btn-del" onclick="delProd('${p.id}')">🗑️</button></div>`;
+    const d=document.createElement('div');d.className='prod-item';
+    const thumb=p.img?`<div class="prod-thumb"><img src="${p.img}" onerror="this.parentElement.innerHTML='${EMOJIS[p._cat]||'🃏'}'"></div>`:`<div class="prod-thumb">${EMOJIS[p._cat]||'🃏'}</div>`;
+    const partes=[];
+    if(p.preco100&&parseFloat(p.preco100)>0)partes.push(`${fmtPreco(p.preco100)} (100)`);
+    if(p.preco500&&parseFloat(p.preco500)>0)partes.push(`${fmtPreco(p.preco500)} (500)`);
+    if(p.preco1000&&parseFloat(p.preco1000)>0)partes.push(`${fmtPreco(p.preco1000)} (1000)`);
+    const precoStr=partes.length?partes.join(' · '):'Sem preço';
+    d.innerHTML=`${thumb}<div class="prod-info"><div class="prod-name">${p.nome}</div><div class="prod-cat">${CAT_LABELS[p._cat]||p._cat}</div><div class="prod-preco">${precoStr}</div></div><div class="prod-actions"><button class="ebtn" onclick="editProd('${p.id}')">✏️ Editar</button><button class="dbtn" onclick="delProd('${p.id}')">🗑️</button></div>`;
     el.appendChild(d);
   });
   updateStats();
 }
-function getSVGThumb(cat){const m={canetas:'✏️',kits:'🎁',canecas:'☕',garrafas:'🍶',squeezes:'💧',couro:'📓'};return m[cat]||'🪵';}
 
-// ─── UPLOAD ───
-function handleUp(inp,ctx,idx){
-  const f=inp.files[0]; if(!f) return;
+function handleUp(inp,ctx){
+  const f=inp.files[0];if(!f)return;
   const r=new FileReader();
   r.onload=e=>{
     const b=e.target.result;
-    if(ctx==='main'){imgMap['__main__']=b;const pv=document.getElementById('f-prev');pv.src=b;pv.style.display='block';}
-    else{imgMap['__cor__'+idx]=b;const pv=document.getElementById('cprev-'+idx);if(pv){pv.src=b;pv.style.display='block';}}
+    imgMap['__main__']=b;const pv=document.getElementById('f-prev');pv.src=b;pv.style.display='block';
   };
   r.readAsDataURL(f);
 }
 
-// ─── CORES ───
-function addCor(n='',c='#aaa',img=''){
-  const idx=corCount++;
-  const d=document.createElement('div'); d.className='cor-row'; d.id='cor-'+idx;
-  d.innerHTML=`<input type="color" value="${c}" id="cc-${idx}"><input type="text" placeholder="Nome (ex: Azul, Prata...)" value="${n}" id="cn-${idx}"><div class="cor-foto-label"><input type="file" accept="image/*" onchange="handleUp(this,'cor',${idx})"><span class="cor-foto-btn">🖼️ Foto</span></div><img id="cprev-${idx}" class="cor-prev" src="${img}" style="${img?'display:block':''}"><div class="cor-del" onclick="document.getElementById('cor-${idx}').remove()">×</div>`;
-  document.getElementById('cores-list').appendChild(d);
-  if(img)imgMap['__cor__'+idx]=img;
-}
-function getCores(){
-  const cores=[];
-  document.querySelectorAll('[id^="cor-"]').forEach(d=>{
-    const idx=d.id.replace('cor-','');
-    const nEl=document.getElementById('cn-'+idx);
-    if(!nEl)return;
-    const n=nEl.value.trim(), c=document.getElementById('cc-'+idx)?.value||'#aaa', img=imgMap['__cor__'+idx]||'';
-    if(n)cores.push({n,c,img});
-  });
-  return cores;
-}
-
-// ─── SAVE ───
 function genId(){return 'p'+Date.now()+Math.random().toString(36).slice(2,5);}
 function findProd(id){for(const l of Object.values(db)){const p=l.find(p=>p.id===id);if(p)return p;}return null;}
-function findCat(id){for(const[k,l]of Object.entries(db)){if(l.find(p=>p.id===id))return k;}return 'canetas';}
+function findCat(id){for(const[k,l]of Object.entries(db)){if(l.find(p=>p.id===id))return k;}return 'outros';}
 
 function saveProduct(){
   const nome=document.getElementById('f-nome').value.trim();
   const cat=document.getElementById('f-cat').value;
   if(!nome){showToast('⚠️ Nome obrigatório!','err');return;}
-  const prod={
-    id:editingId||genId(), nome,
-    mat:document.getElementById('f-mat').value.trim(),
-    area:document.getElementById('f-area').value.trim(),
-    tec:document.getElementById('f-tec').value.trim(),
-    obs:document.getElementById('f-obs').value.trim(),
-    tipo:document.getElementById('f-tipo').value,
-    img:imgMap['__main__']||(editingId?findProd(editingId)?.img||mkImg(cat):''),
-    cores:getCores()
-  };
-  if(!prod.img)prod.img=mkImg(cat);
-  if(editingId){
-    for(const[k,l]of Object.entries(db)){
-      const i=l.findIndex(p=>p.id===editingId);
-      if(i!==-1){if(k===cat){db[k][i]=prod;}else{db[k].splice(i,1);if(!db[cat])db[cat]=[];db[cat].push(prod);}break;}
-    }
-    showToast('✅ Produto atualizado!');
-  }else{
-    if(!db[cat])db[cat]=[];
-    db[cat].push(prod);
-    showToast('✅ Produto adicionado!');
+  let preco100=document.getElementById('f-preco100').value;
+  const preco500=document.getElementById('f-preco500').value;
+  if(!preco100&&preco500&&parseFloat(preco500)>0){
+    preco100=(parseFloat(preco500)*0.9).toFixed(2);
   }
-  saveDB(db);renderList();clearForm();
+  const prod={
+    id:editingId||genId(),nome,
+    papel:document.getElementById('f-papel').value.trim(),
+    acab:document.getElementById('f-acab').value.trim(),
+    impressao:document.getElementById('f-impressao').value,
+    obs:document.getElementById('f-obs').value.trim(),
+    preco100:preco100,
+    preco500:preco500,
+    preco1000:document.getElementById('f-preco1000').value,
+    img:imgMap['__main__']||(editingId?findProd(editingId)?.img||'':'')
+  };
+  if(editingId){
+    const oldCat=findCat(editingId);
+    db[oldCat]=db[oldCat].filter(p=>p.id!==editingId);
+    db[cat]=db[cat]||[];db[cat].push(prod);
+  }else{
+    db[cat]=db[cat]||[];db[cat].push(prod);
+  }
+  saveDB(db);renderList();cancelEdit();
+  showToast('✅ Cartão salvo!');
 }
 
 function editProd(id){
   const p=findProd(id);if(!p)return;
   editingId=id;
-  document.getElementById('form-title').textContent='✏️ Editando: '+p.nome;
   document.getElementById('f-nome').value=p.nome;
   document.getElementById('f-cat').value=findCat(id);
-  document.getElementById('f-mat').value=p.mat||'';
-  document.getElementById('f-area').value=p.area||'';
-  document.getElementById('f-tec').value=p.tec||'';
+  document.getElementById('f-papel').value=p.papel||'';
+  document.getElementById('f-acab').value=p.acab||'';
+  document.getElementById('f-impressao').value=p.impressao||'Frente';
   document.getElementById('f-obs').value=p.obs||'';
-  document.getElementById('f-tipo').value=p.tipo||'inox';
-  if(p.img&&!p.img.includes('svg+xml')){imgMap['__main__']=p.img;const pv=document.getElementById('f-prev');pv.src=p.img;pv.style.display='block';}
-  document.getElementById('cores-list').innerHTML='';corCount=0;
-  (p.cores||[]).forEach(c=>addCor(c.n,c.c,c.img));
-  document.getElementById('btn-cancel').style.display='block';
+  document.getElementById('f-preco100').value=p.preco100||'';
+  document.getElementById('f-preco500').value=p.preco500||'';
+  document.getElementById('f-preco1000').value=p.preco1000||'';
+  imgMap={};
+  const pv=document.getElementById('f-prev');
+  if(p.img){pv.src=p.img;pv.style.display='block';}else{pv.style.display='none';}
+  document.getElementById('form-title-sec').textContent='✏️ Editando Cartão';
+  document.getElementById('cancel-btn').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function cancelEdit(){
+  editingId=null;imgMap={};
+  document.getElementById('f-nome').value='';
+  document.getElementById('f-papel').value='';
+  document.getElementById('f-acab').value='';
+  document.getElementById('f-impressao').value='Frente';
+  document.getElementById('f-obs').value='';
+  document.getElementById('f-preco100').value='';
+  document.getElementById('f-preco500').value='';
+  document.getElementById('f-preco1000').value='';
+  document.getElementById('f-prev').style.display='none';
+  document.getElementById('form-title-sec').textContent='➕ Adicionar Cartão';
+  document.getElementById('cancel-btn').style.display='none';
 }
 
 function delProd(id){
   if(!confirm('Excluir este produto?'))return;
-  for(const k of Object.keys(db))db[k]=db[k].filter(p=>p.id!==id);
-  saveDB(db);renderList();showToast('🗑️ Produto removido.');
+  const cat=findCat(id);
+  db[cat]=db[cat].filter(p=>p.id!==id);
+  saveDB(db);renderList();
+  showToast('🗑️ Produto excluído');
 }
 
-function cancelEdit(){editingId=null;clearForm();document.getElementById('form-title').textContent='➕ Adicionar Produto';document.getElementById('btn-cancel').style.display='none';}
-function clearForm(){
-  ['f-nome','f-mat','f-area','f-tec','f-obs'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
-  imgMap={};const pv=document.getElementById('f-prev');if(pv){pv.src='';pv.style.display='none';}
-  document.getElementById('cores-list').innerHTML='';corCount=0;editingId=null;
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');filterCat=this.dataset.cat;renderList();
+  });
+});
+
+function exportarDB(){
+  try{
+    const json=JSON.stringify(db,null,2);
+    const blob=new Blob([json],{type:'application/json;charset=utf-8'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    const dt=new Date();
+    const stamp=dt.getFullYear()+''+(dt.getMonth()+1).toString().padStart(2,'0')+dt.getDate().toString().padStart(2,'0');
+    a.download='johen_cartoes_db_'+stamp+'.json';
+    a.click();
+    showToast('✅ Backup salvo! Guarde o johen_cartoes_db.json.');
+  }catch(e){showToast('Erro ao exportar!','err');}
 }
 
-// ─── EXPORT / IMPORT ───
-function exportDB(){
-  const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='catalogo-johen-'+new Date().toISOString().slice(0,10)+'.json';a.click();
-  showToast('📥 Catálogo exportado!');
-}
-function importDB(inp){
+function importarDB(inp){
   const f=inp.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=e=>{try{const d=JSON.parse(e.target.result);db=d;saveDB(db);renderList();showToast('📤 Catálogo importado com sucesso!');}catch(err){showToast('❌ Arquivo inválido!','err');}};
+  r.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      const cats=['couche_brilho','fosco_verniz','fosco_arred','hot_stamping','outros'];
+      const valido=cats.some(c=>Array.isArray(data[c]));
+      if(!valido)throw new Error('Formato inválido');
+      db=data;saveDB(db);renderList();
+      showToast('✅ '+Object.values(db).flat().length+' produtos importados!');
+    }catch(ex){showToast('❌ Arquivo inválido.','err');}
+    inp.value='';
+  };
   r.readAsText(f);
 }
-function clearAll(){if(!confirm('ATENÇÃO: Isso vai apagar TODOS os produtos! Tem certeza?'))return;localStorage.removeItem(STORAGE_KEY);db=defaultDB();saveDB(db);renderList();showToast('🗑️ Catálogo resetado.');}
 
-function showToast(m,type='ok'){const t=document.getElementById('toast');t.textContent=m;t.className=`toast ${type} on`;setTimeout(()=>t.classList.remove('on'),2800);}
+function showToast(m,type='ok'){const t=document.getElementById('toast');t.textContent=m;t.className='toast '+type+' on';setTimeout(()=>t.classList.remove('on'),2800);}
 
-// ─── TABS ───
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));this.classList.add('active');filterCat=this.dataset.cat;renderList();});
-});
+function gerarSite(){
+  const html=buildCatalogHTML(db);
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='catalogo-cartoes.html';
+  a.click();
+  showToast('✅ catalogo-cartoes.html gerado!');
+}
+
+function buildCatalogHTML(db){
+  const dbJson=JSON.stringify(db);
+  return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Cartões de Visita — Johen Artes Gráficas</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--tq:#00A8AD;--tq2:#00C2C7;--or:#E8650A;--ye:#F5A623;--ink:#0B2436;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:#F3F1EC;color:var(--ink);min-height:100vh;overflow-x:hidden;}
+.bg{position:fixed;inset:0;z-index:0;background:
+  radial-gradient(circle at 8% 6%, rgba(232,101,10,.14), transparent 22%),
+  radial-gradient(circle at 96% 30%, rgba(245,166,35,.12), transparent 24%),
+  radial-gradient(circle at 90% 92%, rgba(0,168,173,.10), transparent 26%),
+  #F3F1EC;}
+.doodle{position:fixed;pointer-events:none;z-index:0;opacity:.9;}
+.doodle svg{display:block;}
+.d-tl{top:-40px;left:-60px;width:260px;}
+.d-br{bottom:-60px;right:-70px;width:220px;transform:rotate(20deg);}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 20px 90px;}
+.hdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:22px 0 18px;}
+.logo-sub{font-size:10px;color:rgba(11,36,54,.5);letter-spacing:3px;text-transform:uppercase;margin-top:2px;}
+.hero{background:linear-gradient(135deg,var(--tq),var(--tq2));border-radius:20px;padding:34px 28px;margin-bottom:26px;color:#fff;position:relative;overflow:hidden;box-shadow:0 14px 40px rgba(0,168,173,.25);}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.18),transparent 45%);}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,5vw,44px);letter-spacing:1px;position:relative;}
+.hero p{font-size:13px;opacity:.9;margin-top:8px;max-width:480px;position:relative;}
+.search-row{margin:20px 0 18px;}
+.search-input{width:100%;background:#fff;border:1px solid rgba(11,36,54,.12);border-radius:12px;padding:13px 16px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;color:var(--ink);}
+.search-input:focus{border-color:var(--tq);}
+.fil-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+.fil-btn{padding:8px 16px;border-radius:20px;border:1px solid rgba(0,168,173,.28);background:#fff;color:rgba(11,36,54,.6);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.fil-btn.active{background:var(--tq);border-color:var(--tq);color:#fff;font-weight:700;}
+.cat-sec{margin-bottom:30px;}
+.cat-title{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;display:flex;align-items:center;gap:10px;margin-bottom:14px;color:var(--ink);}
+.cat-dot{width:8px;height:8px;border-radius:50%;background:var(--or);flex-shrink:0;}
+.cat-line{flex:1;height:1px;background:linear-gradient(to right,rgba(0,168,173,.25),transparent);}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+.card{background:#fff;border:1px solid rgba(11,36,54,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .18s,box-shadow .18s;}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(0,168,173,.16);}
+.card-img{aspect-ratio:16/10;background:linear-gradient(135deg,var(--tq),var(--tq2));position:relative;display:flex;align-items:center;justify-content:center;}
+.card-img img{width:100%;height:100%;object-fit:cover;}
+.ph{font-size:34px;opacity:.85;}
+.badge{position:absolute;top:9px;left:9px;background:rgba(255,255,255,.9);color:var(--tq);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 9px;border-radius:20px;}
+.card-body{padding:14px 14px 16px;}
+.card-name{font-size:13px;font-weight:700;color:var(--ink);line-height:1.35;}
+.card-mat{font-size:11px;color:rgba(11,36,54,.5);margin-top:4px;}
+.card-preco{margin-top:9px;padding-top:9px;border-top:1px dashed rgba(11,36,54,.1);}
+.card-preco-val{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--tq);}
+.card-preco-min{font-size:10px;color:rgba(11,36,54,.45);margin-top:1px;line-height:1.6;}
+.card-tap{font-size:10px;color:var(--or);margin-top:8px;font-weight:600;}
+.empty{text-align:center;padding:60px 20px;color:rgba(11,36,54,.4);font-size:14px;}
+.modal-ov{position:fixed;inset:0;background:rgba(11,36,54,.55);backdrop-filter:blur(3px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.modal-ov.open{display:flex;}
+@media(min-width:700px){.modal-ov{align-items:center;}}
+.modal{background:#fff;border-radius:22px 22px 0 0;max-width:520px;width:100%;max-height:88vh;overflow-y:auto;position:relative;}
+@media(min-width:700px){.modal{border-radius:22px;}}
+.m-close{position:absolute;top:14px;right:14px;background:rgba(11,36,54,.55);color:#fff;width:32px;height:32px;border-radius:50%;border:none;font-size:16px;cursor:pointer;z-index:5;}
+.m-img{aspect-ratio:16/10;background:linear-gradient(135deg,var(--tq),var(--tq2));display:flex;align-items:center;justify-content:center;border-radius:22px 22px 0 0;overflow:hidden;}
+.m-img img{width:100%;height:100%;object-fit:cover;}
+.m-body{padding:22px;}
+.m-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px;color:var(--ink);}
+.m-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(11,36,54,.06);font-size:12.5px;}
+.m-row span:first-child{color:rgba(11,36,54,.5);}
+.m-row span:last-child{font-weight:600;text-align:right;max-width:60%;}
+.m-preco-box{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;background:rgba(0,168,173,.06);border-radius:12px;padding:14px;margin:16px 0;}
+.m-preco-item{text-align:center;}
+.m-preco-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:rgba(11,36,54,.45);}
+.m-preco-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--tq);margin-top:2px;}
+.m-obs{font-size:12px;color:rgba(11,36,54,.6);line-height:1.6;margin-top:14px;}
+.m-wpp{display:block;text-align:center;background:linear-gradient(135deg,var(--or),var(--ye));color:#fff;font-weight:700;font-size:14px;padding:14px;border-radius:12px;text-decoration:none;margin-top:18px;}
+.scroll-top{position:fixed;bottom:20px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--tq);color:#fff;border:none;font-size:18px;box-shadow:0 6px 20px rgba(0,168,173,.35);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:80;}
+.scroll-top.vis{opacity:1;pointer-events:auto;}
+footer{text-align:center;font-size:11px;color:rgba(11,36,54,.35);padding:30px 0 10px;}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="doodle d-tl"><svg viewBox="0 0 200 200" fill="none"><path d="M10 90 C10 40 60 10 100 30 C140 50 130 90 100 95 C80 98 75 75 95 65 C115 55 150 65 160 100" stroke="url(#g1)" stroke-width="16" stroke-linecap="round"/><defs><linearGradient id="g1" x1="0" y1="0" x2="200" y2="200"><stop stop-color="#F5A623"/><stop offset="1" stop-color="#E8650A"/></linearGradient></defs></svg></div>
+<div class="doodle d-br"><svg viewBox="0 0 200 200" fill="none"><path d="M20 20 C60 10 90 40 80 80 C72 112 40 110 35 85" stroke="url(#g2)" stroke-width="14" stroke-linecap="round"/><defs><linearGradient id="g2" x1="0" y1="0" x2="200" y2="200"><stop stop-color="#E8650A"/><stop offset="1" stop-color="#F5A623"/></linearGradient></defs></svg></div>
+
+<div class="wrap">
+<div class="hdr">
+  <div>
+    <svg style="height:34px;" viewBox="0 0 220 50" xmlns="http://www.w3.org/2000/svg">
+      <text y="36" font-size="36" font-family="serif" font-weight="900" fill="#0B2436" letter-spacing="-1">JOHEN</text>
+      <text x="4" y="47" font-size="8" font-family="sans-serif" fill="#0B2436" opacity="0.55" letter-spacing="3">ARTES GRÁFICAS</text>
+    </svg>
+    <div class="logo-sub">Catálogo · Cartões de Visita</div>
+  </div>
+  <div style="font-size:11px;color:rgba(11,36,54,.5);"><span id="total-count">0</span> modelos disponíveis</div>
+</div>
+
+<div class="hero">
+  <h1>Cartões de Visita</h1>
+  <p>Papel, acabamento e impressão sob medida para o seu negócio. Escolha o modelo, veja o preço por quantidade e peça o orçamento direto pelo WhatsApp.</p>
+</div>
+
+<div class="search-row"><input class="search-input" id="search-input" placeholder="🔍 Buscar por papel ou acabamento..."></div>
+<div class="fil-row">
+  <button class="fil-btn active" data-cat="all">Todos</button>
+  <button class="fil-btn" data-cat="couche_brilho">✨ Couché Brilho</button>
+  <button class="fil-btn" data-cat="fosco_verniz">🖤 Fosco + Verniz</button>
+  <button class="fil-btn" data-cat="fosco_arred">🔵 Canto Arredondado</button>
+  <button class="fil-btn" data-cat="hot_stamping">✨ Hot Stamping</button>
+  <button class="fil-btn" data-cat="outros">🃏 Outros</button>
+</div>
+
+<div id="catalog"></div>
+<footer>Johen Artes Gráficas · São Paulo, SP · @johen_artgrafica</footer>
+</div>
+
+<div class="modal-ov" id="modal-ov">
+  <div class="modal">
+    <button class="m-close" onclick="closeModal()">✕</button>
+    <div class="m-img"><img id="m-main-img" style="display:none;"><div class="ph" id="m-ph" style="display:none;">🃏</div></div>
+    <div class="m-body">
+      <div class="m-name" id="m-name"></div>
+      <div class="m-row"><span>Papel</span><span id="m-papel"></span></div>
+      <div class="m-row"><span>Acabamento</span><span id="m-acab"></span></div>
+      <div class="m-row"><span>Impressão</span><span id="m-impressao"></span></div>
+      <div class="m-preco-box" id="m-preco-box">
+        <div class="m-preco-item" id="m-preco100-box"><div class="m-preco-lbl">100 un.</div><div class="m-preco-val" id="m-preco100"></div></div>
+        <div class="m-preco-item"><div class="m-preco-lbl">500 un.</div><div class="m-preco-val" id="m-preco500"></div></div>
+        <div class="m-preco-item"><div class="m-preco-lbl">1.000 un.</div><div class="m-preco-val" id="m-preco1000"></div></div>
+      </div>
+      <div class="m-obs" id="m-obs"></div>
+      <a href="#" id="m-wpp" class="m-wpp" target="_blank">💬 Pedir orçamento no WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const CAT_LABELS={couche_brilho:'✨ Couché Brilho',fosco_verniz:'🖤 Fosco + Verniz',fosco_arred:'🔵 Fosco + Canto Arredondado',hot_stamping:'✨ Hot Stamping',outros:'🃏 Outros'};
+const db=${dbJson};
+let activeCat='all',searchTerm='';
+const WPP='https://wa.me/5511982877142?text=';
+function fmtP(v){return 'R$ '+parseFloat(v).toFixed(2).replace('.',',');}
+
+function renderCatalog(){
+  const el=document.getElementById('catalog');el.innerHTML='';let total=0;
+  for(const[key,list]of Object.entries(db)){
+    if(activeCat!=='all'&&activeCat!==key)continue;
+    const f=list.filter(p=>p.nome.toLowerCase().includes(searchTerm)||(p.papel||'').toLowerCase().includes(searchTerm)||(p.acab||'').toLowerCase().includes(searchTerm));
+    if(!f.length)continue;total+=f.length;
+    const sec=document.createElement('div');sec.className='cat-sec';
+    sec.innerHTML='<div class="cat-title"><div class="cat-dot"></div>'+CAT_LABELS[key]+'<div class="cat-line"></div></div>';
+    const grid=document.createElement('div');grid.className='grid';
+    f.forEach(p=>grid.appendChild(mkCard(p)));sec.appendChild(grid);el.appendChild(sec);
+  }
+  if(!total)el.innerHTML='<div class="empty">Nenhum cartão encontrado 🔍</div>';
+  document.getElementById('total-count').textContent=total;
+}
+function mkCard(p){
+  const d=document.createElement('div');d.className='card';
+  const temPreco=(p.preco100&&parseFloat(p.preco100)>0)||(p.preco500&&parseFloat(p.preco500)>0)||(p.preco1000&&parseFloat(p.preco1000)>0);
+  let precoHTML='';
+  if(temPreco){
+    const destaque=p.preco100&&parseFloat(p.preco100)>0?{v:p.preco100,q:'100'}:{v:p.preco500,q:'500'};
+    const linhas=[];
+    if(p.preco100&&parseFloat(p.preco100)>0&&destaque.q!=='100')linhas.push('100 un.: '+fmtP(p.preco100));
+    if(p.preco500&&parseFloat(p.preco500)>0&&destaque.q!=='500')linhas.push('500 un.: '+fmtP(p.preco500));
+    if(p.preco1000&&parseFloat(p.preco1000)>0)linhas.push('1.000 un.: '+fmtP(p.preco1000));
+    precoHTML='<div class="card-preco"><div class="card-preco-val">'+fmtP(destaque.v)+'<span style="font-size:10px;font-weight:400;color:rgba(11,36,54,.45);"> /'+destaque.q+'un</span></div><div class="card-preco-min">'+linhas.join('<br>')+'</div></div>';
+  }
+  d.innerHTML='<div class="card-img"><div class="badge">Cartão</div>'+(p.img?'<img src="'+p.img+'" alt="'+p.nome+'" onerror="this.style.display=\\'none\\';this.nextSibling.style.display=\\'flex\\'"><div class="ph" style="display:none;">🃏</div>':'<div class="ph">🃏</div>')+'</div><div class="card-body"><div class="card-name">'+p.nome+'</div><div class="card-mat">'+(p.acab||'')+'</div>'+precoHTML+'<div class="card-tap">👆 Ver detalhes</div></div>';
+  d.addEventListener('click',()=>openModal(p));return d;
+}
+function openModal(p){
+  const mi=document.getElementById('m-main-img'),ph=document.getElementById('m-ph');
+  if(p.img){mi.src=p.img;mi.style.display='block';ph.style.display='none';}else{mi.style.display='none';ph.style.display='flex';}
+  document.getElementById('m-name').textContent=p.nome;
+  document.getElementById('m-papel').textContent=p.papel||'—';
+  document.getElementById('m-acab').textContent=p.acab||'—';
+  document.getElementById('m-impressao').textContent=p.impressao||'—';
+  const pb=document.getElementById('m-preco-box');
+  const p100box=document.getElementById('m-preco100-box');
+  const temAlgumPreco=(p.preco100&&parseFloat(p.preco100)>0)||(p.preco500&&parseFloat(p.preco500)>0)||(p.preco1000&&parseFloat(p.preco1000)>0);
+  if(temAlgumPreco){
+    pb.style.display='grid';
+    if(p.preco100&&parseFloat(p.preco100)>0){p100box.style.display='block';document.getElementById('m-preco100').textContent=fmtP(p.preco100);}else{p100box.style.display='none';}
+    document.getElementById('m-preco500').textContent=p.preco500&&parseFloat(p.preco500)>0?fmtP(p.preco500):'—';
+    document.getElementById('m-preco1000').textContent=p.preco1000&&parseFloat(p.preco1000)>0?fmtP(p.preco1000):'—';
+  }else{pb.style.display='none';}
+  document.getElementById('m-obs').textContent=p.obs||'';
+  const precoPartes=[];
+  if(p.preco100&&parseFloat(p.preco100)>0)precoPartes.push(fmtP(p.preco100)+' (100un)');
+  if(p.preco500&&parseFloat(p.preco500)>0)precoPartes.push(fmtP(p.preco500)+' (500un)');
+  if(p.preco1000&&parseFloat(p.preco1000)>0)precoPartes.push(fmtP(p.preco1000)+' (1000un)');
+  const precoTxt=precoPartes.length?' | '+precoPartes.join(' / '):'';
+  const msg=encodeURIComponent('Olá! Vi o catálogo de cartões e tenho interesse em: *'+p.nome+'*'+precoTxt+'. Gostaria de um orçamento!');
+  document.getElementById('m-wpp').href=WPP+msg;
+  document.getElementById('modal-ov').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal-ov').classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.fil-btn').forEach(btn=>{btn.addEventListener('click',function(){document.querySelectorAll('.fil-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');activeCat=this.dataset.cat;renderCatalog();window.scrollTo({top:0,behavior:'smooth'});});});
+document.getElementById('search-input').addEventListener('input',function(){searchTerm=this.value.toLowerCase().trim();renderCatalog();});
+document.getElementById('modal-ov').addEventListener('click',function(e){if(e.target===this)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+window.addEventListener('scroll',()=>{document.getElementById('scroll-top').classList.toggle('vis',window.scrollY>400);});
+renderCatalog();
+<\/script>
+</body>
+</html>`;
+}
 
 renderList();
 </script>
